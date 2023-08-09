@@ -1,0 +1,8 @@
+@import "src/styles.scss";
+
+.main__container {
+  width: 100%;
+  margin: 35px 0;
+  min-height: calc(100vh - 200px - 365px - 70px);
+  color: $color-white;
+}

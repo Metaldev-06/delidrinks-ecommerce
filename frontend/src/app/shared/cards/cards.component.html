@@ -1,0 +1,43 @@
+<div
+  class="card__container"
+  *ngIf="product"
+  (mouseenter)="startFlash()"
+  (mouseleave)="stopFlash()"
+>
+  <div
+    class="flash"
+    [ngClass]="{ 'flash-effect': isFlashing }"
+    [ngStyle]="getDynamicStyles()"
+  ></div>
+  <div class="image__container">
+    <img
+      [src]="image()"
+      [alt]="product.attributes.name"
+      [routerLink]="['/product/' + product.attributes.slug]"
+    />
+  </div>
+
+  <div class="info__container">
+    <div class="text__container">
+      <h3 [routerLink]="['/product/' + product.attributes.slug]">
+        {{ brand() + " - " + product.attributes.name | titlecase }}
+      </h3>
+      <p>{{ category() }}</p>
+    </div>
+
+    <div class="info__product">
+      <div class="price__container">
+        <p>{{ product.attributes.price | currency }}</p>
+      </div>
+
+      <div class="detail__product">
+        <span class="weight">{{ product.attributes.weight }}</span>
+        <span class="chip">{{ product.attributes.stock | stock }}</span>
+      </div>
+    </div>
+
+    <div class="button__container">
+      <button class="button custom__button--line">Añadir al carrito</button>
+    </div>
+  </div>
+</div>

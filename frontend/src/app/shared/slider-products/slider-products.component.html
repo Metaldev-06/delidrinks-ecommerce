@@ -1,0 +1,32 @@
+<section class="recipe__container navigation-wrapper">
+  <h2>{{ title | titlecase }}</h2>
+
+  <article class="keen-slider keen-slider--vertical" #sliderRef>
+    <div
+      class="keen-slider__slide number-slide"
+      *ngFor="let product of products"
+    >
+      <app-cards [product]="product"></app-cards>
+    </div>
+  </article>
+
+  <svg
+    [ngClass]="'arrow arrow--left '"
+    (click)="slider.prev()"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
+    />
+  </svg>
+  <svg
+    *ngIf="slider"
+    [ngClass]="'arrow arrow--right '"
+    (click)="slider.next()"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+  </svg>
+</section>

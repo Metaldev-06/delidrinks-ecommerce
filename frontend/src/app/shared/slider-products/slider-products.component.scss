@@ -1,0 +1,46 @@
+@import "src/styles.scss";
+
+.recipe__container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.number-slide {
+  display: flex;
+  justify-content: center;
+}
+
+h2 {
+  font-weight: normal;
+  padding: 1rem 0rem 1rem 0.5rem;
+}
+
+.navigation-wrapper {
+  position: relative;
+}
+
+.arrow {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  fill: #fff;
+  cursor: pointer;
+}
+
+.arrow--left {
+  left: 5px;
+}
+
+.arrow--right {
+  left: auto;
+  right: 5px;
+}
+
+.arrow--disabled {
+  fill: rgba(255, 255, 255, 0.5);
+}

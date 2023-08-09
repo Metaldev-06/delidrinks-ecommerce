@@ -1,0 +1,31 @@
+<header class="header__container">
+  <div class="header__content">
+    <div class="header__logo">
+      <img
+        src="../../../../assets/images/logo.png"
+        alt="logo"
+        [routerLink]="['/']"
+      />
+    </div>
+  </div>
+</header>
+<nav class="header__nav">
+  <ul class="nav__list">
+    <li class="nav__item">
+      <button class="button custom__button--fill">Productos</button>
+    </li>
+    <li class="nav__item input__container">
+      <input type="text" placeholder="Buscar..." />
+    </li>
+    <li class="nav__item">
+      <div class="button__container">
+        <button class="button custom__button--fill">
+          <i class="pi pi-user"></i>
+        </button>
+        <button class="button custom__button--fill">
+          <i class="pi pi-shopping-bag"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,155 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+$heigth-header: 150px;
+$heigth-navbar: 50px;
+$max-width: 1400px;
+// FONTS
+$heading1: 26px;
+$heading2: 20px;
+$heading3: 16px;
+$heading4: 14px;
+$heading5: 10px;
+
+//COLORS
+$color-black: #202020;
+$color-black-secondary: #2b2b2b;
+$color-white: #fdfdfd;
+$color-grey: #87868b;
+$color-complementary: #1562f0;
+
+//GLASSMORPHISM
+$input-background: rgba(255, 255, 255, 0.1);
+$border-input: 1px solid rgba(255, 255, 255, 0.1);
+
+$header-backdrop: blur(50px) saturate(180%);
+$header-color: rgba(37, 37, 37, 0.781);
+
+$card-backdrop: blur(20px) saturate(100%);
+$card-color: rgba(255, 255, 255, 0.09);
+
+//SHADOW
+$card-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+$categories-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+$our-service-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+$image-product-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+//BORDER
+// $border-primary: 1px solid $background-primary;
+// $border-variant: 1px solid $background-variant;
+// $border-disabled: 1px solid $background-disabled;
+//BORDER-RADIUS
+$border-radius-x1: 4px;
+$border-radius-x2: 8px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
+}
+
+body {
+  background-color: $color-black;
+  scroll-behavior: smooth;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// html,
+// body {
+//   height: 100%;
+// }
+
+.button {
+  width: 163px;
+  height: 40px;
+  border-radius: $border-radius-x1;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+  background-color: $color-white;
+  font-size: 20px;
+  cursor: pointer;
+}
+.custom__button--fill {
+  &:hover {
+    backdrop-filter: $card-backdrop;
+    -webkit-backdrop-filter: $card-backdrop;
+    background-color: $card-color;
+    color: $color-white;
+  }
+
+  &:active {
+    filter: opacity(0.7);
+    transform: scale(0.9);
+  }
+}
+
+.custom__button--line {
+  backdrop-filter: $card-backdrop;
+  -webkit-backdrop-filter: $card-backdrop;
+  background-color: $card-color;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
+  &:active {
+    filter: opacity(0.7);
+    transform: scale(0.9);
+  }
+}
+
+.chip {
+  // background-color: $color-grey;
+  backdrop-filter: $card-backdrop;
+  -webkit-backdrop-filter: $card-backdrop;
+  background-color: $card-color;
+  color: $color-white;
+  font-weight: 500;
+  padding: 0.3rem 0;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+}
+
+.arrow {
+  user-select: none;
+}
+
+.required::after {
+  content: "*";
+  font-size: 1.2rem;
+  padding-left: 0.3rem;
+  color: red;
+}
+
+$breakpoints: (
+  mobileXs: 400px,
+  mobile: 480px,
+  tablet: 768px,
+  ipad: 820px,
+  screenXs: 880px,
+  screen: 1024px,
+  screenxl: 1069px,
+  desktop: 1200px,
+  large: 1440px,
+);
+
+@mixin media-up($breakpoint) {
+  @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}

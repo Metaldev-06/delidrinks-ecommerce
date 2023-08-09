@@ -1,0 +1,53 @@
+<section class="navigation-wrapper">
+  <article class="keen-slider keen-slider--vertical" #sliderRef>
+    <div
+      class="keen-slider__slide number-slide1"
+      *ngFor="let item of sliderInfo"
+    >
+      <div class="slider__content">
+        <div class="slider__text">
+          <h2>
+            <span>
+              {{ item.brand }}
+            </span>
+            <span>
+              {{ item.name }}
+            </span>
+          </h2>
+          <p>
+            {{ item.description }}
+          </p>
+        </div>
+        <div class="slider__image">
+          <img [src]="item.image" [alt]="item.brand + ' ' + item.name" />
+        </div>
+      </div>
+    </div>
+  </article>
+  <svg
+    [ngClass]="
+      'arrow arrow--left ' + (currentSlide === 0 ? 'arrow--disabled' : '')
+    "
+    (click)="slider.prev()"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
+    />
+  </svg>
+  <svg
+    *ngIf="slider"
+    [ngClass]="
+      'arrow arrow--right ' +
+      (slider.track.details.slides.length - 1 === currentSlide
+        ? 'arrow--disabled'
+        : '')
+    "
+    (click)="slider.next()"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+  </svg>
+</section>

@@ -1,0 +1,23 @@
+<app-slider-banner />
+
+<app-categories-home />
+
+<app-slider-products
+  *ngIf="products$ | async as products"
+  [title]="'nuestra selección'"
+  [products]="products"
+/>
+
+<app-slider-products
+  *ngIf="products$ | async as products"
+  [title]="'novedades'"
+  [products]="products"
+/>
+
+<app-gift />
+
+<app-recipe-slider
+  [title]="'nuestras recetas favoritas'"
+  *ngIf="recipes$ | async as recipes"
+  [recipes]="recipes"
+/>

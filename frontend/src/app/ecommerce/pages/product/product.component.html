@@ -1,0 +1,12 @@
+<section class="product__container"></section>
+
+<app-slider-products
+  *ngIf="product"
+  [title]="'productos relacionadas'"
+  [products]="products"
+/>
+<app-recipe-slider
+  *ngIf="product"
+  [title]="'recetas relacionados'"
+  [recipes]="recipes"
+/>

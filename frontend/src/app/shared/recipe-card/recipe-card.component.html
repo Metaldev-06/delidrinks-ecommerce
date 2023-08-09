@@ -1,0 +1,14 @@
+<div class="recipe__container">
+  <img [src]="image()" [alt]="recipe.attributes.name" />
+  <div class="text__card">
+    <div class="text__container">
+      <div class="info__recipe">
+        <span>{{ category() | titlecase }}</span>
+        <span>{{ recipe.attributes.difficulty | difficulty }}</span>
+      </div>
+      <h3>{{ recipe.attributes.name | titlecase }}</h3>
+    </div>
+
+    <button class="button custom__button--line">Ver Receta</button>
+  </div>
+</div>
