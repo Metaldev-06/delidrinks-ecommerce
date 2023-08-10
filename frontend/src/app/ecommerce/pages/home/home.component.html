@@ -3,21 +3,21 @@
 <app-categories-home />
 
 <app-slider-products
-  *ngIf="products$ | async as products"
+  *ngIf="products()"
   [title]="'nuestra selección'"
-  [products]="products"
+  [products]="products()"
 />
 
 <app-slider-products
-  *ngIf="products$ | async as products"
+  *ngIf="products()"
   [title]="'novedades'"
-  [products]="products"
+  [products]="products()"
 />
 
 <app-gift />
 
 <app-recipe-slider
   [title]="'nuestras recetas favoritas'"
-  *ngIf="recipes$ | async as recipes"
-  [recipes]="recipes"
+  *ngIf="recipes()"
+  [recipes]="recipes()"
 />

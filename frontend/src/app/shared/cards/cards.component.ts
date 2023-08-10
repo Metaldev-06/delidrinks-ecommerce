@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.development';
 export class CardsComponent implements OnInit {
   @Input() product!: ProductDatum;
 
-  isFlashing: boolean = false;
+  isFlashing = signal<boolean>(false);
 
   private readonly baseUrl = environment.imageUrl;
   image = signal<string>('');
@@ -35,15 +35,15 @@ export class CardsComponent implements OnInit {
     return {
       background: `radial-gradient(circle at 50% 50%, ${this.product.attributes.color} -30%, rgba(0, 0, 0, 0) 55%)`,
       transition: 'background-color 0.5s ease-in-out', // Animación de transición
-      display: this.isFlashing ? 'block' : 'none',
+      display: this.isFlashing() ? 'block' : 'none',
     };
   }
 
   startFlash() {
-    this.isFlashing = true; // Activa la animación cuando entra el mouse
+    this.isFlashing.set(true); // Activa la animación cuando entra el mouse
   }
 
   stopFlash() {
-    this.isFlashing = false; // Desactiva la animación cuando sale el mouse
+    this.isFlashing.set(false); // Desactiva la animación cuando sale el mouse
   }
 }

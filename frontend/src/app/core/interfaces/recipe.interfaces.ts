@@ -13,6 +13,7 @@ export interface RecipeDatum {
 export interface PurpleAttributes {
   name: string;
   description: string;
+  review: string;
   slug: string;
   createdAt: string;
   updatedAt: string;

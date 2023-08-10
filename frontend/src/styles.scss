@@ -48,9 +48,27 @@ $border-radius-x2: 8px;
   font-family: "Quicksand", sans-serif;
 }
 
+::selection {
+  background-color: $color-white;
+  color: $color-black;
+}
+
 body {
   background-color: $color-black;
   scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: $color-white;
+  border-radius: 20px;
 }
 
 button {
@@ -116,17 +134,47 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .chip {
   // background-color: $color-grey;
-  backdrop-filter: $card-backdrop;
-  -webkit-backdrop-filter: $card-backdrop;
-  background-color: $card-color;
+  backdrop-filter: $header-backdrop;
+  -webkit-backdrop-filter: $header-backdrop;
+  background-color: $header-color;
   color: $color-white;
   font-weight: 500;
   padding: 0.3rem 0;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+  // background-color: #125be36b;
 }
 
 .arrow {
   user-select: none;
+}
+
+.review__container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+::ng-deep .markdown__container {
+  h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: $border-radius-x1;
+    display: flex;
+  }
+
+  ol {
+    padding: 0.9rem 2rem;
+  }
+
+  ul {
+    padding: 0.9rem 2rem;
+  }
 }
 
 .required::after {

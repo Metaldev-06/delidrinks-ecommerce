@@ -1,4 +1,55 @@
-<section class="product__container"></section>
+<section class="product__container" *ngIf="product">
+  <article class="product__info">
+    <div class="image__container">
+      <img [src]="image()" [alt]="product.name" />
+    </div>
+    <div class="text__container">
+      <div class="title__cotainer">
+        <h1>{{ brand() | titlecase }} {{ product.name | titlecase }}</h1>
+
+        <i class="pi pi-heart"></i>
+      </div>
+
+      <span class="text__price">{{
+        product.price | currency : "ARS" : "symbol-narrow"
+      }}</span>
+
+      <p>
+        {{ product.description }}
+      </p>
+
+      <form class="button__container">
+        <div>
+          <span class="chip">{{ product.stock | stock }}</span>
+
+          <button class="button custom__button--line">comprar</button>
+        </div>
+        <div>
+          <select>
+            <option
+              *ngIf="product.stock === 0"
+              value="0"
+              selected
+              disabled
+              hidden
+            >
+              0
+            </option>
+            <option *ngFor="let option of stockOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <button class="button custom__button--fill">Añadir al Carrito</button>
+        </div>
+      </form>
+    </div>
+  </article>
+
+  <article class="review__container" *ngIf="product">
+    <markdown class="markdown__container" [data]="markdown()"> </markdown>
+  </article>
+</section>
 
 <app-slider-products
   *ngIf="product"

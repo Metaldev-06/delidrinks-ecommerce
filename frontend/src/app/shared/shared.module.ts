@@ -36,6 +36,11 @@ import { DifficultyPipe } from './pipes/difficulty/difficulty.pipe';
     OurServicesComponent,
     GiftComponent,
     RecipeSliderComponent,
+    StockPipe,
+    StatePayPipe,
+    QuantityPipe,
+    NumberPhonePipe,
+    DifficultyPipe,
   ],
 })
 export class SharedModule {}
