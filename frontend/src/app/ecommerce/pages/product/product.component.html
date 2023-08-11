@@ -1,4 +1,4 @@
-<section class="product__container" *ngIf="product">
+<section class="product__container" *ngIf="product; else loader">
   <article class="product__info">
     <div class="image__container">
       <img [src]="image()" [alt]="product.name" />
@@ -61,3 +61,7 @@
   [title]="'recetas relacionados'"
   [recipes]="recipes"
 />
+
+<ng-template #loader>
+  <app-loader />
+</ng-template>

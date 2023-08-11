@@ -1,1 +1,30 @@
-<p>recipe works!</p>
+<section class="recipe__container" *ngIf="recipe">
+  <article class="recipe__info--top">
+    <div class="recipe__description">
+      <h1 class="recipe__title">{{ recipe.name }}</h1>
+      <span>{{ category() }}</span>
+      <p class="recipe__text">{{ recipe.description }}</p>
+    </div>
+    <div class="recipe__image">
+      <img [src]="image()" [alt]="recipe.name" />
+    </div>
+  </article>
+  <article class="review__container--recipe">
+    <markdown
+      class="markdown__container--recipe"
+      [data]="recipe.review"
+    ></markdown>
+  </article>
+</section>
+
+<app-slider-products
+  *ngIf="products$ | async as products"
+  [title]="'productos relacionados a la categoría'"
+  [products]="products"
+/>
+
+<app-recipe-slider
+  *ngIf="recipes$ | async as recipes"
+  [title]="'recetas relacionadas a la categoría'"
+  [recipes]="recipes"
+/>

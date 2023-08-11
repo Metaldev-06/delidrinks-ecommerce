@@ -1,5 +1,10 @@
-<div class="recipe__container">
-  <img [src]="image()" [alt]="recipe.attributes.name" />
+<div
+  class="recipe__container"
+  [routerLink]="['/recipe/' + recipe.attributes.slug]"
+>
+  <div class="image__container">
+    <img [ngSrc]="image()" [alt]="recipe.attributes.name" fill />
+  </div>
   <div class="text__card">
     <div class="text__container">
       <div class="info__recipe">

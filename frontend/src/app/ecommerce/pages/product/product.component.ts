@@ -60,7 +60,7 @@ export class ProductComponent implements OnInit {
 
   getProducts(category: string) {
     this.productService.getProductsByCategory(category).subscribe((res) => {
-      this.products = res;
+      this.products = res.data;
     });
   }
 

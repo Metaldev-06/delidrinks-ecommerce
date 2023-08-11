@@ -1,23 +1,20 @@
-<app-slider-banner />
+<div *ngIf="products().length > 0; else loader">
+  <app-slider-banner />
 
-<app-categories-home />
+  <app-categories-home />
 
-<app-slider-products
-  *ngIf="products()"
-  [title]="'nuestra selección'"
-  [products]="products()"
-/>
+  <app-slider-products [title]="'nuestra selección'" [products]="products()" />
 
-<app-slider-products
-  *ngIf="products()"
-  [title]="'novedades'"
-  [products]="products()"
-/>
+  <app-slider-products [title]="'novedades'" [products]="products()" />
 
-<app-gift />
+  <app-gift />
 
-<app-recipe-slider
-  [title]="'nuestras recetas favoritas'"
-  *ngIf="recipes()"
-  [recipes]="recipes()"
-/>
+  <app-recipe-slider
+    [title]="'nuestras recetas favoritas'"
+    [recipes]="recipes()"
+  />
+</div>
+
+<ng-template #loader>
+  <app-loader />
+</ng-template>

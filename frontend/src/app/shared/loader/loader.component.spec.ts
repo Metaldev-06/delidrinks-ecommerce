@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import RecipeComponent from './recipe.component';
+import { LoaderComponent } from './loader.component';
 
-describe('RecipeComponent', () => {
-  let component: RecipeComponent;
-  let fixture: ComponentFixture<RecipeComponent>;
+describe('LoaderComponent', () => {
+  let component: LoaderComponent;
+  let fixture: ComponentFixture<LoaderComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RecipeComponent],
+      declarations: [LoaderComponent]
     });
-    fixture = TestBed.createComponent(RecipeComponent);
+    fixture = TestBed.createComponent(LoaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

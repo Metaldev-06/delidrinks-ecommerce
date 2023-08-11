@@ -11,9 +11,10 @@
   ></div>
   <div class="image__container">
     <img
-      [src]="image()"
+      [ngSrc]="image()"
       [alt]="product.attributes.name"
       [routerLink]="['/product/' + product.attributes.slug]"
+      fill
     />
   </div>
 

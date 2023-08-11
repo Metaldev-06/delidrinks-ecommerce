@@ -153,10 +153,43 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: 1320px;
   margin: 0 auto;
 }
+.review__container--recipe {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  backdrop-filter: $card-backdrop;
+  -webkit-backdrop-filter: $card-backdrop;
+  background-color: $card-color;
+  border-radius: $border-radius-x2;
+  padding: 1rem;
+}
 
 ::ng-deep .markdown__container {
   h2 {
     text-align: center;
+    font-size: 1.5rem;
+    padding: 2rem 0;
+  }
+
+  img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: $border-radius-x1;
+    display: flex;
+  }
+
+  ol {
+    padding: 0.9rem 2rem;
+  }
+
+  ul {
+    padding: 0.9rem 2rem;
+  }
+}
+
+::ng-deep .markdown__container--recipe {
+  h2 {
     font-size: 1.5rem;
     padding: 2rem 0;
   }

@@ -12,10 +12,19 @@
 <nav class="header__nav">
   <ul class="nav__list">
     <li class="nav__item">
-      <button class="button custom__button--fill">Productos</button>
+      <button
+        class="button custom__button--fill products__button"
+        [routerLink]="['/products/']"
+        (mouseenter)="op.show($event)"
+        (click)="op.hide()"
+      >
+        Productos
+      </button>
     </li>
     <li class="nav__item input__container">
-      <input type="text" placeholder="Buscar..." />
+      <form [formGroup]="searchForm" (ngSubmit)="SearchFormProducts()">
+        <input type="text" placeholder="Buscar..." formControlName="product" />
+      </form>
     </li>
     <li class="nav__item">
       <div class="button__container">
@@ -29,3 +38,19 @@
     </li>
   </ul>
 </nav>
+
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <p-tree
+      [value]="files"
+      class="w-full md:w-30rem"
+      selectionMode="single"
+      [(selection)]="selectedFile"
+      (onNodeExpand)="nodeExpand($event)"
+      (onNodeCollapse)="nodeCollapse($event)"
+      (onNodeSelect)="nodeSelect($event)"
+      (onNodeUnselect)="nodeUnselect($event)"
+      [style]="{ border: 'none' }"
+    ></p-tree>
+  </ng-template>
+</p-overlayPanel>

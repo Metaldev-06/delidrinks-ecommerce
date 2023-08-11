@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { SliderProductsComponent } from './slider-products/slider-products.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ImageByCountryPipe } from './pipes/image-by-country/image-by-country.pipe';
@@ -14,6 +14,7 @@ import { GiftComponent } from './gift/gift.component';
 import { RecipeSliderComponent } from './recipe-slider/recipe-slider.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { DifficultyPipe } from './pipes/difficulty/difficulty.pipe';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,9 @@ import { DifficultyPipe } from './pipes/difficulty/difficulty.pipe';
     RecipeSliderComponent,
     RecipeCardComponent,
     DifficultyPipe,
+    LoaderComponent,
   ],
-  imports: [CommonModule, PrimeNgModule, RouterModule],
+  imports: [CommonModule, PrimeNgModule, RouterModule, NgOptimizedImage],
   exports: [
     SliderProductsComponent,
     OurServicesComponent,
@@ -41,6 +43,8 @@ import { DifficultyPipe } from './pipes/difficulty/difficulty.pipe';
     QuantityPipe,
     NumberPhonePipe,
     DifficultyPipe,
+    CardsComponent,
+    LoaderComponent,
   ],
 })
 export class SharedModule {}

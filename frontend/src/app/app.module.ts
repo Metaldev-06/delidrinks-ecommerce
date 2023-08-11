@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import localeEsAR from '@angular/common/locales/es-AR';
-import { registerLocaleData } from '@angular/common';
+import { NgOptimizedImage, registerLocaleData } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { MarkdownModule } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ registerLocaleData(localeEsAR);
     BrowserAnimationsModule,
     MarkdownModule.forRoot(),
     FormsModule,
+    NgOptimizedImage,
   ],
   providers: [
     CookieService,

@@ -1,0 +1,36 @@
+<ng-container *ngIf="isEmpty; else productsContainer">
+  <ng-container *ngIf="!isLoading; else loading">
+    <section class="message__container">
+      <h1>No hay productos</h1>
+    </section>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <section class="loading__container">
+    <app-loader />
+  </section>
+</ng-template>
+
+<ng-template #productsContainer>
+  <section class="product__container">
+    <form class="form__filter" [formGroup]="selectForm">
+      <select formControlName="filter" (change)="selectValue()">
+        <option value="name:asc" selected>Ordenar por nombre (A - Z)</option>
+        <option value="name:desc">Ordenar por nombre (Z - A)</option>
+        <option value="price:desc">Ordenar por precio (Mayor)</option>
+        <option value="price:asc">Ordenar por precio (Menor)</option>
+      </select>
+    </form>
+    <article class="cards__cotainer">
+      <app-cards *ngFor="let product of products" [product]="product" />
+    </article>
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="totalRecords"
+      [style]="{ background: 'none', margin: '5rem auto' }"
+    ></p-paginator>
+  </section>
+</ng-template>

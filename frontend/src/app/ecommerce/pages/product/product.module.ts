@@ -13,9 +13,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ProductRoutingModule,
     SharedModule,
-    // MarkdownModule.forRoot({
-    //   sanitize: SecurityContext.NONE,
-    // }),
     MarkdownModule.forChild(),
     ReactiveFormsModule,
   ],

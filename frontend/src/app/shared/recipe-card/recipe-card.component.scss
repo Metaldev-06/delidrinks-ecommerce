@@ -11,10 +11,16 @@
   background-color: $card-color;
   border-radius: $border-radius-x1;
   overflow: hidden;
+  cursor: pointer;
 
-  img {
+  .image__container {
     width: 100%;
     height: 331px;
+    position: relative;
+  }
+  img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
