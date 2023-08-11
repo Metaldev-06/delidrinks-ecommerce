@@ -7,6 +7,7 @@ import {
 } from 'src/app/core/interfaces/product';
 import { RecipeDatum } from 'src/app/core/interfaces/recipe.interfaces';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
+import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -29,6 +30,7 @@ export class ProductComponent implements OnInit {
 
   private readonly baseUrl = environment.imageUrl;
   private readonly productService = inject(ProductServices);
+  private readonly recipesService = inject(RecipesService);
   private readonly router = inject(ActivatedRoute);
   ngOnInit(): void {
     this.getParamSlug();
@@ -53,7 +55,7 @@ export class ProductComponent implements OnInit {
   }
 
   getRecipes(category: string) {
-    this.productService.getRecipesByCategory(category).subscribe((res) => {
+    this.recipesService.getRecipesByCategory(category).subscribe((res) => {
       this.recipes = res;
     });
   }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ProductDatum } from 'src/app/core/interfaces/product';
 import { Recipe, RecipeDatum } from 'src/app/core/interfaces/recipe.interfaces';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
+import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ export class HomeComponent implements OnInit {
   recipes!: Signal<RecipeDatum[]>;
 
   private readonly productService = inject(ProductServices);
+  private readonly recipesService = inject(RecipesService);
 
   ngOnInit(): void {
     this.getProducts();
@@ -26,6 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   getRecipes() {
-    this.recipes = this.productService.getRecipes();
+    this.recipes = this.recipesService.getRecipes();
   }
 }
