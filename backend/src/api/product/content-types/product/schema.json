@@ -23,7 +23,8 @@
     },
     "review": {
       "type": "richtext",
-      "required": true
+      "required": true,
+      "default": "## Preparación  Disfrute Johnnie Walker Double Black como prefiera - solo, con un chorro de agua o con su mezclador favorito.  Nosotros recomendamos Johnnie Walker Double Black en las rocas. Aquí está la preparación perfecta.  1. Llene un vaso de whisky con cubos de hielo 2. Agregue 50 ml de Johnnie Walker Double Black 3. Disfrute  ![johnnie-walker-double-black-on-the-rocks-tumbler.webp](http://localhost:1337/uploads/johnnie_walker_double_black_on_the_rocks_tumbler_598fac8c22.webp)  ## Sabores  Johnnie Walker Double Black es una mezcla intensa - poderosa, con cuerpo y ahumada.  La gran influencia de los sabores potentes de la Costa oeste Escocesa y la región de las Islas es evidente, con notas de humo de turba, pasas y frutas - manzanas, peras y cítricos-. Estas se convierten en vainillas dulces y especias, antes de terminar en cálidas y persistentes notas amaderadas de roble y humo."
     },
     "image": {
       "type": "media",

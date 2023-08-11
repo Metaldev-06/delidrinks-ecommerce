@@ -20,13 +20,24 @@
     },
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
     },
     "recipes": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::recipe.recipe",
       "mappedBy": "categories"
+    },
+    "brands": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::brand.brand",
+      "inversedBy": "categories"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }
