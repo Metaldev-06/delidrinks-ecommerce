@@ -18,14 +18,14 @@
         {{ product.description }}
       </p>
 
-      <form class="button__container">
+      <form class="button__container" [formGroup]="purchaserForm">
         <div>
           <span class="chip">{{ product.stock | stock }}</span>
 
           <button class="button custom__button--line">comprar</button>
         </div>
         <div>
-          <select>
+          <select formControlName="quantity">
             <option
               *ngIf="product.stock === 0"
               value="0"
@@ -40,7 +40,9 @@
             </option>
           </select>
 
-          <button class="button custom__button--fill">Añadir al Carrito</button>
+          <button class="button custom__button--fill" (click)="addToCart()">
+            Añadir al Carrito
+          </button>
         </div>
       </form>
     </div>

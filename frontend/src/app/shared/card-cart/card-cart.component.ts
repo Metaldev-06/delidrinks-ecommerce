@@ -35,12 +35,7 @@ export class CardCartComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRelations(this.product);
-
     this.selectForm = this.initSelectForm();
-
-    // console.log(this.selectForm.value.quantity);
-    // console.log(this.selectForm.valid);
-
     this.validate.emit(this.selectForm.valid);
     // this.selectForm.valueChanges.subscribe(() => {
     //   this.validate.emit(this.selectForm.valid);

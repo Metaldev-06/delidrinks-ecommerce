@@ -1,11 +1,15 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { CartProduct } from 'src/app/core/interfaces/cart-product.interfaces';
+import { Message } from 'src/app/core/interfaces/message';
 import {
   ProductDatum,
   PurpleAttributes,
 } from 'src/app/core/interfaces/product';
 import { RecipeDatum } from 'src/app/core/interfaces/recipe.interfaces';
+import { CartService } from 'src/app/core/services/cart-services/cart.service';
+import { MessageService } from 'src/app/core/services/message-services/message.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
 import { environment } from 'src/environments/environment.development';
@@ -16,7 +20,7 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-  // purchaserForm!: FormGroup;
+  purchaserForm!: FormGroup;
 
   product!: PurpleAttributes;
   products!: ProductDatum[];
@@ -32,8 +36,12 @@ export class ProductComponent implements OnInit {
   private readonly productService = inject(ProductServices);
   private readonly recipesService = inject(RecipesService);
   private readonly router = inject(ActivatedRoute);
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly cartService = inject(CartService);
+  private readonly messageService = inject(MessageService);
   ngOnInit(): void {
     this.getParamSlug();
+    this.purchaserForm = this.initPurchaserForm();
   }
 
   getParamSlug() {
@@ -75,5 +83,28 @@ export class ProductComponent implements OnInit {
 
   get stockOptions(): number[] {
     return Array.from({ length: this.stock }, (_, index) => index + 1);
+  }
+
+  initPurchaserForm(): FormGroup {
+    return this.formBuilder.group({
+      quantity: [1, [Validators.min(1), Validators.max(this.stock)]],
+    });
+  }
+  addToCart() {
+    if (this.product.stock === 0) {
+      const message: Message = {
+        title: 'Stock Agotado',
+        message: 'Este producto está fuera de stock.',
+      };
+      this.messageService.showMessage(message);
+      return;
+    }
+
+    const body: CartProduct = {
+      slug: this.product.slug,
+      quantity: Number(this.purchaserForm.value.quantity),
+    };
+
+    this.cartService.addToCartAssigning(body);
   }
 }
