@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TreeNode } from 'primeng/api';
+import { OverlayPanel } from 'primeng/overlaypanel';
 import { CategoryDatum } from 'src/app/core/interfaces/category.interfaces';
+import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 
 @Component({
@@ -11,20 +13,25 @@ import { ProductServices } from 'src/app/core/services/product-services/product-
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('filter') filterPanel!: OverlayPanel;
   searchForm!: FormGroup;
 
   files!: TreeNode[];
   categories!: CategoryDatum[];
+  totalProductToCart = signal<number>(0);
+  isLogued = false;
 
   selectedFile!: any;
 
   private readonly productService = inject(ProductServices);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
+  private readonly cartService = inject(CartService);
 
   ngOnInit(): void {
     this.getCategories();
     this.searchForm = this.initSearchForm();
+    this.getProductsToCart();
   }
 
   getCategories() {
@@ -58,10 +65,12 @@ export class HeaderComponent implements OnInit {
   }
 
   nodeExpand(event: any) {}
-
   nodeCollapse(event: any) {}
+  nodeUnselect(event: any) {}
 
   nodeSelect(event: any) {
+    this.filterPanel.hide();
+
     this.router.navigate([`/products`], {
       queryParams: {
         category: event.node.data,
@@ -76,9 +85,6 @@ export class HeaderComponent implements OnInit {
       });
     }
   }
-
-  nodeUnselect(event: any) {}
-
   initSearchForm(): FormGroup {
     return this.formBuilder.group({
       product: [''],
@@ -91,5 +97,16 @@ export class HeaderComponent implements OnInit {
     });
 
     this.searchForm.reset();
+  }
+
+  getProductsToCart() {
+    this.cartService.getCartObservable().subscribe((products) => {
+      const totalProductos = products.reduce(
+        (total, producto) => total + producto.quantity,
+        0
+      );
+
+      this.totalProductToCart.set(totalProductos);
+    });
   }
 }
