@@ -1,0 +1,67 @@
+<article class="cart__content">
+  <div class="cart__image" [routerLink]="['/product', product.attributes.slug]">
+    <img [src]="image()" [alt]="product.attributes.name" />
+  </div>
+  <div class="cart__info">
+    <div class="cart__info--top">
+      <h3 [routerLink]="['/product', product.attributes.slug]">
+        {{ product.attributes.name | titlecase }}
+      </h3>
+      <i
+        class="pi pi-trash"
+        (click)="deleteCartItem(product.attributes.slug)"
+      ></i>
+    </div>
+
+    <div class="cart__info--bottom">
+      <form [formGroup]="selectForm">
+        <select
+          formControlName="quantity"
+          (change)="selectQuantity(product.attributes.slug)"
+        >
+          <option
+            [value]="product.attributes.quantity"
+            value="0"
+            *ngIf="
+              product.attributes.stock === 0 ||
+              product.attributes.quantity! > product.attributes.stock
+            "
+            selected
+            disabled
+            hidden
+          >
+            0
+          </option>
+          <option *ngFor="let option of stockOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+
+        <span
+          class="price"
+          *ngIf="
+            product.attributes.stock > 0 &&
+              !(product.attributes.quantity! > product.attributes.stock);
+            else warning
+          "
+        >
+          {{ product.attributes.price | currency : "ARS" : "symbol-narrow" }}
+        </span>
+      </form>
+
+      <span
+        class="price"
+        *ngIf="
+          product.attributes.stock > 0 &&
+          !(product.attributes.quantity! > product.attributes.stock)
+        "
+      >
+        {{ total | currency : "ARS" : "symbol-narrow" }}
+      </span>
+    </div>
+  </div>
+</article>
+
+<ng-template #warning>
+  <p class="warning">Sin stock</p>
+</ng-template>

@@ -16,7 +16,10 @@ $color-black: #202020;
 $color-black-secondary: #2b2b2b;
 $color-white: #fdfdfd;
 $color-grey: #87868b;
+$color-disabled: #999999;
+$color-soft-gray: #e7e7e7;
 $color-complementary: #1562f0;
+$color-red: #d12424;
 
 //GLASSMORPHISM
 $input-background: rgba(255, 255, 255, 0.1);
@@ -53,9 +56,10 @@ $border-radius-x2: 8px;
   color: $color-black;
 }
 
-body {
+html {
   background-color: $color-black;
   scroll-behavior: smooth;
+  scrollbar-gutter: stable both-edges;
 }
 
 body::-webkit-scrollbar {
@@ -146,6 +150,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .arrow {
   user-select: none;
+  fill: $color-grey;
 }
 
 .review__container {

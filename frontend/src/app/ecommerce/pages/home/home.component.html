@@ -1,4 +1,7 @@
-<div *ngIf="products().length > 0; else loader">
+<ng-container
+  class="home__container"
+  *ngIf="products().length > 0; else loader"
+>
   <app-slider-banner />
 
   <app-categories-home />
@@ -13,7 +16,7 @@
     [title]="'nuestras recetas favoritas'"
     [recipes]="recipes()"
   />
-</div>
+</ng-container>
 
 <ng-template #loader>
   <app-loader />

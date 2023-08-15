@@ -1,0 +1,34 @@
+<section
+  class="cart__container"
+  *ngIf="productsCart.length > 0; else emptyCart"
+>
+  <app-card-cart
+    *ngFor="let product of combinedProducts; let i = index"
+    [product]="product"
+    (deleteProduct)="deleteItemCart($event)"
+    (updateProduct)="updateQuantity($event)"
+    (validate)="handleValidation($event, i)"
+  />
+
+  <article class="cart__total" *ngIf="products.length > 0; else loading">
+    <p>
+      Subtotal
+      <span>{{ totalProductPrice | currency : "ARS" : "symbol-narrow" }}</span>
+    </p>
+
+    <div class="button__container">
+      <button class="button custom__button--line">Ver carrito</button>
+      <button class="button custom__button--fill" (click)="purchase()">
+        Comprar
+      </button>
+    </div>
+  </article>
+</section>
+
+<ng-template #emptyCart>
+  <p>No hay productos en el carrito</p>
+</ng-template>
+
+<ng-template #loading>
+  <app-loader />
+</ng-template>

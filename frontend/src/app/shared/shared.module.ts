@@ -15,6 +15,10 @@ import { RecipeSliderComponent } from './recipe-slider/recipe-slider.component';
 import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 import { DifficultyPipe } from './pipes/difficulty/difficulty.pipe';
 import { LoaderComponent } from './loader/loader.component';
+import { CartComponent } from './cart/cart.component';
+import { CardCartComponent } from './card-cart/card-cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,17 @@ import { LoaderComponent } from './loader/loader.component';
     RecipeCardComponent,
     DifficultyPipe,
     LoaderComponent,
+    CartComponent,
+    CardCartComponent,
+    MessageComponent,
   ],
-  imports: [CommonModule, PrimeNgModule, RouterModule, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    PrimeNgModule,
+    RouterModule,
+    NgOptimizedImage,
+    ReactiveFormsModule,
+  ],
   exports: [
     SliderProductsComponent,
     OurServicesComponent,
@@ -45,6 +58,8 @@ import { LoaderComponent } from './loader/loader.component';
     DifficultyPipe,
     CardsComponent,
     LoaderComponent,
+    CartComponent,
+    MessageComponent,
   ],
 })
 export class SharedModule {}

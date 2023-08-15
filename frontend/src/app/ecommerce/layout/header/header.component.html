@@ -15,8 +15,10 @@
       <button
         class="button custom__button--fill products__button"
         [routerLink]="['/products/']"
-        (mouseenter)="op.show($event)"
-        (click)="op.hide()"
+        (mouseenter)="filter.show($event)"
+        (mouseenter)="user.hide()"
+        (mouseenter)="cart.hide()"
+        (click)="filter.hide()"
       >
         Productos
       </button>
@@ -28,18 +30,35 @@
     </li>
     <li class="nav__item">
       <div class="button__container">
-        <button class="button custom__button--fill">
+        <button
+          class="button custom__button--fill"
+          (click)="user.toggle($event)"
+        >
           <i class="pi pi-user"></i>
         </button>
-        <button class="button custom__button--fill">
+        <button
+          class="button custom__button--fill"
+          (click)="cart.toggle($event)"
+        >
           <i class="pi pi-shopping-bag"></i>
+          <span
+            class="badge__cart"
+            *ngIf="totalProductToCart() > 0"
+            [ngStyle]="
+              isLogued
+                ? { backgroundColor: '#4af6d7' }
+                : { backgroundColor: '#EAEAEA' }
+            "
+          >
+            {{ totalProductToCart() }}
+          </span>
         </button>
       </div>
     </li>
   </ul>
 </nav>
 
-<p-overlayPanel #op>
+<p-overlayPanel #filter>
   <ng-template pTemplate="content">
     <p-tree
       [value]="files"
@@ -53,4 +72,14 @@
       [style]="{ border: 'none' }"
     ></p-tree>
   </ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel #cart>
+  <ng-template pTemplate="content">
+    <app-cart />
+  </ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel #user>
+  <ng-template pTemplate="content"> </ng-template>
 </p-overlayPanel>

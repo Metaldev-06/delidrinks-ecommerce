@@ -1,0 +1,15 @@
+<article class="message__container">
+  <div class="message__content">
+    <div
+      class="message__card"
+      *ngFor="let item of message; let i = index"
+      [@messageAnimation]
+      (@messageAnimation.done)="animationDone(i)"
+    >
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.message }}</p>
+
+      <div class="delete__message" (click)="closeMessage(item)">x</div>
+    </div>
+  </div>
+</article>

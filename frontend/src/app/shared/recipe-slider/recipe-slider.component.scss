@@ -4,6 +4,7 @@
   width: 95%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 h2 {
@@ -22,7 +23,6 @@ h2 {
   top: 50%;
   transform: translateY(-50%);
   -webkit-transform: translateY(-50%);
-  fill: #fff;
   cursor: pointer;
 }
 

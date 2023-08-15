@@ -83,6 +83,22 @@ export class ProductServices {
     });
   }
 
+  getCartProducts(products: any[]): Observable<ProductDatum[]> {
+    let params = this.getCommonParams();
+
+    products.forEach((productSlug, index) => {
+      params = params.set(`filters[slug][$in][${index}]`, productSlug.slug);
+    });
+
+    return this.http
+      .get<ProductDatum[]>(`${this.baseUrl}/products`, { params })
+      .pipe(
+        map((res: any) => {
+          return res.data;
+        })
+      );
+  }
+
   getCategories(): Observable<CategoryDatum[]> {
     let params = new HttpParams()
       .set('[fields][0]', 'name')

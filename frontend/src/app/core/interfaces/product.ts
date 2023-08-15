@@ -26,6 +26,7 @@ export interface PurpleAttributes {
   category: Brand;
   color?: string;
   review: string;
+  quantity?: number;
 }
 
 export interface Brand {

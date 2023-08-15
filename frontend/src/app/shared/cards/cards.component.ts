@@ -1,5 +1,8 @@
-import { Component, Input, signal, OnInit } from '@angular/core';
+import { Component, Input, signal, OnInit, inject } from '@angular/core';
+import { Message } from 'src/app/core/interfaces/message';
 import { ProductDatum } from 'src/app/core/interfaces/product';
+import { CartService } from 'src/app/core/services/cart-services/cart.service';
+import { MessageService } from 'src/app/core/services/message-services/message.service';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -11,11 +14,13 @@ export class CardsComponent implements OnInit {
   @Input() product!: ProductDatum;
 
   isFlashing = signal<boolean>(false);
-
-  private readonly baseUrl = environment.imageUrl;
   image = signal<string>('');
   brand = signal<string>('');
   category = signal<string>('');
+
+  private readonly baseUrl = environment.imageUrl;
+  private readonly cartServices = inject(CartService);
+  private readonly messageService = inject(MessageService);
 
   ngOnInit(): void {
     this.getRelations(this.product);
@@ -45,5 +50,25 @@ export class CardsComponent implements OnInit {
 
   stopFlash() {
     this.isFlashing.set(false); // Desactiva la animación cuando sale el mouse
+  }
+
+  addToCart(product: ProductDatum) {
+    if (product.attributes.stock === 0) {
+      const message: Message = {
+        title: 'Stock Agotado',
+        message: 'Este producto está fuera de stock.',
+      };
+
+      const messageDuration = 5000; // Tiempo de duración específico para este mensaje
+      this.messageService.showMessage(message, messageDuration);
+      return;
+    }
+
+    const cartProduct = {
+      slug: product.attributes.slug,
+      quantity: 1,
+    };
+
+    this.cartServices.addToCart(cartProduct);
   }
 }
