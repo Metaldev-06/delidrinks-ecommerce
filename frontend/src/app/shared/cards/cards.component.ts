@@ -25,7 +25,9 @@ export class CardsComponent implements OnInit {
   }
 
   getRelations(products: ProductDatum) {
-    this.image.set(`${products.attributes.image.data[0].attributes.url}`);
+    this.image.set(
+      `${products.attributes.image.data[0].attributes.formats.small.url}`
+    );
 
     this.brand.set(`${products.attributes.brand.data.attributes.name}`);
 

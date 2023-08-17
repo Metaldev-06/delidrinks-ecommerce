@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ProductDatum } from 'src/app/core/interfaces/product';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 
@@ -16,8 +17,9 @@ interface PageEvent {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   selectForm!: FormGroup;
+  private productsSubscription!: Subscription;
 
   products: ProductDatum[] = [];
 
@@ -64,7 +66,7 @@ export class ProductsComponent implements OnInit {
     query?: string,
     sort?: string
   ) {
-    this.productService
+    this.productsSubscription = this.productService
       .getProductsByCategory(category, subcategory, page, query, sort)
       .subscribe({
         next: (res: any) => {
@@ -116,5 +118,9 @@ export class ProductsComponent implements OnInit {
       this.query,
       this.selectForm.value.filter
     );
+  }
+
+  ngOnDestroy(): void {
+    this.productsSubscription.unsubscribe();
   }
 }

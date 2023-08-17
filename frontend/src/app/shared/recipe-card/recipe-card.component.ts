@@ -17,7 +17,9 @@ export class RecipeCardComponent implements OnInit {
   }
 
   getRelations(recipe: RecipeDatum) {
-    this.image.set(`${recipe.attributes.image.data.attributes.url}`);
+    this.image.set(
+      `${recipe.attributes.image.data.attributes.formats.small.url}`
+    );
     this.category.set(
       `${recipe.attributes.categories.data[0].attributes.name}`
     );

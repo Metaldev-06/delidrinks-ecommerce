@@ -22,7 +22,7 @@ export class ProductServices {
   private getCommonParams(): HttpParams {
     return new HttpParams()
       .set('populate[categories][fields][0]', 'name')
-      .set('populate[image][fields][0]', 'url')
+      .set('populate', 'image')
       .set('populate[brand][fields][0]', 'name')
       .set('populate[category][fields][0]', 'name');
   }

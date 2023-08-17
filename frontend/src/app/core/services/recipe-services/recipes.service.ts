@@ -16,8 +16,8 @@ export class RecipesService {
 
   private getCommonParams(): HttpParams {
     return new HttpParams()
-      .set('populate[image][fields][0]', 'url')
-      .set('populate[categories][fields][0]', 'name');
+      .set('populate[categories][fields][0]', 'name')
+      .set('populate', 'image');
   }
 
   getRecipes(): Signal<RecipeDatum[]> {
