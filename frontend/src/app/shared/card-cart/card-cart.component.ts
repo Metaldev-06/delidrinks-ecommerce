@@ -10,7 +10,6 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CartProduct } from 'src/app/core/interfaces/cart-product.interfaces';
 import { ProductDatum } from 'src/app/core/interfaces/product';
-import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-card-cart',
@@ -25,7 +24,6 @@ export class CardCartComponent implements OnInit {
 
   selectForm!: FormGroup;
 
-  private readonly baseUrl = environment.imageUrl;
   private readonly formBuilder = inject(FormBuilder);
 
   image = signal<string>('');
@@ -43,9 +41,7 @@ export class CardCartComponent implements OnInit {
   }
 
   getRelations(product: ProductDatum) {
-    this.image.set(
-      `${this.baseUrl}${product.attributes.image.data[0].attributes.url}`
-    );
+    this.image.set(`${product.attributes.image.data[0].attributes.url}`);
     this.brand.set(`${product.attributes.brand.data.attributes.name}`);
     this.category.set(`${product.attributes.category.data.attributes.name}`);
     this.stock = product.attributes.stock;

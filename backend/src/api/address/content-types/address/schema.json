@@ -32,7 +32,8 @@
       "type": "string"
     },
     "primary": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "name": {
       "type": "string",

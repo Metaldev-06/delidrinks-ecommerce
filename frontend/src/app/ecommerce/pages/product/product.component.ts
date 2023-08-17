@@ -12,7 +12,6 @@ import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
-import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-product',
@@ -32,7 +31,6 @@ export class ProductComponent implements OnInit {
   markdown = signal<string>('');
   stock = 0;
 
-  private readonly baseUrl = environment.imageUrl;
   private readonly productService = inject(ProductServices);
   private readonly recipesService = inject(RecipesService);
   private readonly router = inject(ActivatedRoute);
@@ -75,7 +73,7 @@ export class ProductComponent implements OnInit {
   }
 
   getRelations(product: PurpleAttributes) {
-    this.image.set(`${this.baseUrl}${product.image.data[0].attributes.url}`);
+    this.image.set(`${product.image.data[0].attributes.url}`);
     this.brand.set(`${product.brand.data.attributes.name}`);
     this.category.set(`${product.category.data.attributes.name}`);
     this.stock = product.stock;

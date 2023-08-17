@@ -8,7 +8,6 @@ import {
 } from 'src/app/core/interfaces/recipe.interfaces';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
-import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-recipe',
@@ -24,7 +23,6 @@ export class RecipeComponent implements OnInit {
   image = signal<string>('');
   category = signal<string>('');
 
-  private readonly baseUrl = environment.imageUrl;
   private readonly productService = inject(ProductServices);
   private readonly recipesService = inject(RecipesService);
   private readonly router = inject(ActivatedRoute);
@@ -51,7 +49,7 @@ export class RecipeComponent implements OnInit {
   }
 
   getRelations(recipe: PurpleAttributes) {
-    this.image.set(`${this.baseUrl}${recipe.image.data.attributes.url}`);
+    this.image.set(`${recipe.image.data.attributes.url}`);
     this.category.set(`${recipe.categories.data[0].attributes.name}`);
   }
 

@@ -90,19 +90,20 @@ export class CartComponent implements OnInit {
   }
 
   handleValidation(isValid: boolean, index: number) {
-    this.childFormValidities = [];
+    // this.childFormValidities = [];
     this.childFormValidities[index] = isValid;
     this.checkAllFormsValidity();
   }
 
   checkAllFormsValidity() {
+    console.log(this.childFormValidities);
     // Verificar si todos los formularios son válidos (todos true)
     const allFormsValid = this.childFormValidities.every(
       (validity) => validity === true
     );
 
     // Verificar si todos los formularios son inválidos (todos false)
-    const allFormsInvalid = this.childFormValidities.every(
+    const allFormsInvalid = this.childFormValidities.some(
       (validity) => validity === false
     );
 

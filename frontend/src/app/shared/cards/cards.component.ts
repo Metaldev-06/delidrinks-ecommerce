@@ -3,7 +3,6 @@ import { Message } from 'src/app/core/interfaces/message';
 import { ProductDatum } from 'src/app/core/interfaces/product';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
-import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-cards',
@@ -18,7 +17,6 @@ export class CardsComponent implements OnInit {
   brand = signal<string>('');
   category = signal<string>('');
 
-  private readonly baseUrl = environment.imageUrl;
   private readonly cartServices = inject(CartService);
   private readonly messageService = inject(MessageService);
 
@@ -27,9 +25,7 @@ export class CardsComponent implements OnInit {
   }
 
   getRelations(products: ProductDatum) {
-    this.image.set(
-      `${this.baseUrl}${products.attributes.image.data[0].attributes.url}`
-    );
+    this.image.set(`${products.attributes.image.data[0].attributes.url}`);
 
     this.brand.set(`${products.attributes.brand.data.attributes.name}`);
 

@@ -41,9 +41,6 @@ export class MessageComponent {
   }
 
   closeMessage(message: Message) {
-    const index = this.message.indexOf(message);
-    if (index !== -1) {
-      this.messagesToRemove.add(index);
-    }
+    this.messageService.removeMessage(message);
   }
 }
