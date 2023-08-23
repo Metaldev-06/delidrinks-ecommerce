@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CarouselModule } from 'primeng/carousel';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TreeModule } from 'primeng/tree';
 import { PaginatorModule } from 'primeng/paginator';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-
+import { DialogModule } from 'primeng/dialog';
 @NgModule({
   exports: [
-    CarouselModule,
     OverlayPanelModule,
     TreeModule,
     PaginatorModule,
     TieredMenuModule,
+    DialogModule,
   ],
 })
 export class PrimeNgModule {}

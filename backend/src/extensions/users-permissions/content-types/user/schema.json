@@ -66,14 +66,16 @@
       "configurable": false
     },
     "birthday_date": {
-      "type": "date"
+      "type": "date",
+      "required": false
     },
     "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "addresses": {
       "type": "relation",
@@ -86,6 +88,20 @@
       "relation": "oneToMany",
       "target": "api::phone.phone",
       "mappedBy": "users_permissions_user"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "favorites": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::favorite.favorite",
+      "mappedBy": "users_permissions_users"
     }
   }
 }

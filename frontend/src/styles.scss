@@ -31,6 +31,9 @@ $header-color: rgba(37, 37, 37, 0.781);
 $card-backdrop: blur(20px) saturate(100%);
 $card-color: rgba(255, 255, 255, 0.09);
 
+$auth-backdrop: blur(20px) saturate(100%);
+$auth-color: rgba(23, 23, 23, 0.208);
+
 //SHADOW
 $card-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
 $categories-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
@@ -52,8 +55,8 @@ $border-radius-x2: 8px;
 }
 
 ::selection {
-  background-color: $color-white;
-  color: $color-black;
+  background-color: #de54cc;
+  color: $color-white;
 }
 
 html {
@@ -145,7 +148,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: 500;
   padding: 0.3rem 0;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
-  // background-color: #125be36b;
 }
 
 .arrow {

@@ -16,6 +16,16 @@
       [routerLink]="['/product/' + product.attributes.slug]"
       fill
     />
+
+    <i
+      *ngIf="isLogued"
+      class="pi"
+      [ngClass]="{
+        'pi-heart': !viewIsFavorite(),
+        'pi-heart-fill': viewIsFavorite()
+      }"
+      (click)="isFavorite(product)"
+    ></i>
   </div>
 
   <div class="info__container">

@@ -25,9 +25,9 @@ export default ({ env }) => ({
         apiKey: env('SENDGRID_API_KEY'),
       },
       settings: {
-        defaultFrom: 'metaldev06@gmail.com',
-        defaultReplyTo: 'metaldev06@gmail.com',
-        testAddress: 'juliasedefdjian@strapi.io',
+        defaultFrom: env('SENDGRID_EMAIL'),
+        defaultReplyTo: env('SENDGRID_EMAIL'),
+        testAddress: env('SENDGRID_TEST_EMAIL'),
       },
     },
   },

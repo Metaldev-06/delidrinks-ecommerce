@@ -1,8 +1,18 @@
 import { Component, Input, signal, OnInit, inject } from '@angular/core';
+import {
+  Datum,
+  FavoritesLocal,
+} from 'src/app/core/interfaces/favorites.interfaces';
 import { Message } from 'src/app/core/interfaces/message';
-import { ProductDatum } from 'src/app/core/interfaces/product';
+import {
+  ProductDatum,
+  PurpleAttributes,
+} from 'src/app/core/interfaces/product';
+import { User } from 'src/app/core/interfaces/user.interfaces';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
+import { FavoritesService } from 'src/app/core/services/favorites-service/favorites.service';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-cards',
@@ -16,12 +26,20 @@ export class CardsComponent implements OnInit {
   image = signal<string>('');
   brand = signal<string>('');
   category = signal<string>('');
+  viewIsFavorite = signal<boolean>(false);
+  userData: User = JSON.parse(localStorage.getItem('userData') || '{}');
+
+  isLogued: boolean = false;
 
   private readonly cartServices = inject(CartService);
   private readonly messageService = inject(MessageService);
+  private readonly favoritesService = inject(FavoritesService);
+  private readonly userService = inject(UserService);
 
   ngOnInit(): void {
     this.getRelations(this.product);
+    this.favorite(this.product.attributes);
+    this.isAutenticate();
   }
 
   getRelations(products: ProductDatum) {
@@ -68,5 +86,54 @@ export class CardsComponent implements OnInit {
     };
 
     this.cartServices.addToCart(cartProduct);
+  }
+
+  favorite(product: PurpleAttributes) {
+    this.favoritesService.favorites$.subscribe((res) => {
+      const favorites: Datum[] = res.data;
+
+      const isFavorite = favorites?.find(
+        (favorite) => favorite.attributes.slug === product.slug
+      );
+
+      this.viewIsFavorite.set(isFavorite !== undefined);
+    });
+  }
+
+  isFavorite(product: ProductDatum) {
+    if (!this.viewIsFavorite()) {
+      this.favoritesService
+        .addFavorite(product, this.userData)
+        .subscribe((res) => {
+          console.log(res);
+          this.favoritesService.getFavorites(this.userData).subscribe((res) => {
+            this.favoritesService.updateFavoritesInStorage(res);
+          });
+        });
+    } else {
+      const sessionStorageData = JSON.parse(
+        sessionStorage.getItem('favorites') || '{}'
+      );
+
+      const slug = product.attributes.slug;
+
+      const matchingObject: Datum = sessionStorageData.data.find(
+        (item: Datum) => item.attributes.slug === slug
+      );
+
+      this.favoritesService
+        .deleteFavorite(matchingObject.id)
+        .subscribe((res) => {
+          this.favoritesService.getFavorites(this.userData).subscribe((res) => {
+            this.favoritesService.updateFavoritesInStorage(res);
+          });
+        });
+    }
+  }
+
+  isAutenticate() {
+    this.userService.getAutenticate().subscribe((res) => {
+      this.isLogued = res;
+    });
   }
 }

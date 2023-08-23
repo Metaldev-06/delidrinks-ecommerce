@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EcommerceComponent } from './ecommerce.component';
+import {
+  isAutenticateGuard,
+  isAutenticateMatchGuard,
+} from '../core/guards/is-autenticate/is-autenticate.guard';
 
 const routes: Routes = [
   {
@@ -28,6 +32,22 @@ const routes: Routes = [
           import('./pages/products/products.module').then(
             (m) => m.ProductsModule
           ),
+      },
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('./pages/user/user.module').then((m) => m.UserModule),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
+      },
+      {
+        path: 'favorites',
+        loadChildren: () =>
+          import('./pages/favorites/favorites.module').then(
+            (m) => m.FavoritesModule
+          ),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
       },
     ],
   },

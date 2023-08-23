@@ -1,6 +1,8 @@
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../core/services/user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-ecommerce',
@@ -15,11 +17,28 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class EcommerceComponent {
-  router = inject(Router);
+export class EcommerceComponent implements OnInit {
+  private isLogued = signal<boolean>(false);
+
+  private readonly router = inject(Router);
+  private readonly userService = inject(UserService);
+  private readonly cookieService = inject(CookieService);
+
+  ngOnInit(): void {
+    this.isAutenticate();
+  }
 
   getAnimationState(): string {
     // Lógica para determinar el estado de la animación según la URL actual o cualquier otra condición
     return this.router.url;
+  }
+
+  isAutenticate() {
+    this.isLogued.set(this.cookieService.check('accessToken'));
+    if (this.isLogued()) {
+      this.userService.setAutenticate(true);
+    } else {
+      this.userService.setAutenticate(false);
+    }
   }
 }

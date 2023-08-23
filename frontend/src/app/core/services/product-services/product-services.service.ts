@@ -42,14 +42,14 @@ export class ProductServices {
     );
   }
 
-  getProductBySlug(slug: string): Observable<PurpleAttributes> {
+  getProductBySlug(slug: string): Observable<ProductDatum> {
     const params = this.getCommonParams().set('filters[slug][$eq]', slug);
 
     return this.http
       .get<ProductDatum>(`${this.baseUrl}/products`, { params })
       .pipe(
         map((res: any) => {
-          return res.data[0].attributes;
+          return res.data[0];
         })
       );
   }
@@ -85,7 +85,6 @@ export class ProductServices {
 
   getCartProducts(products: any[]): Observable<ProductDatum[]> {
     let params = this.getCommonParams();
-
     products.forEach((productSlug, index) => {
       params = params.set(`filters[slug][$in][${index}]`, productSlug.slug);
     });

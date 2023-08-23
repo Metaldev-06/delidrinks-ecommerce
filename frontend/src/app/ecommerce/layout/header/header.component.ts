@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TreeNode } from 'primeng/api';
+import { MenuItem, TreeNode } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { CategoryDatum } from 'src/app/core/interfaces/category.interfaces';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { CookieService } from 'ngx-cookie-service';
+import { User } from 'src/app/core/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-header',
@@ -14,24 +17,65 @@ import { ProductServices } from 'src/app/core/services/product-services/product-
 })
 export class HeaderComponent implements OnInit {
   @ViewChild('filter') filterPanel!: OverlayPanel;
+  @ViewChild('cart') cartPanel!: OverlayPanel;
+  @ViewChild('user') userPanel!: OverlayPanel;
   searchForm!: FormGroup;
 
   files!: TreeNode[];
   categories!: CategoryDatum[];
   totalProductToCart = signal<number>(0);
-  isLogued = false;
+  isLogued: boolean = false;
 
   selectedFile!: any;
+  items!: MenuItem[];
+
+  logout = false;
+
+  userData = signal<User>({} as User);
 
   private readonly productService = inject(ProductServices);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly cartService = inject(CartService);
+  private readonly userService = inject(UserService);
+  private readonly cookieService = inject(CookieService);
 
   ngOnInit(): void {
     this.getCategories();
     this.searchForm = this.initSearchForm();
     this.getProductsToCart();
+    this.isAutenticate();
+    this.userData.set(JSON.parse(localStorage.getItem('userData') || '{}'));
+
+    this.items = [
+      {
+        label: 'Cuenta',
+        icon: 'pi pi-fw pi-user-edit',
+        routerLink: ['/user'],
+        command: () => {
+          this.closeModal();
+        },
+      },
+      {
+        label: 'Favoritos',
+        icon: 'pi pi-fw pi-heart',
+        routerLink: ['/favorites'],
+        command: () => {
+          this.closeModal();
+        },
+      },
+      {
+        separator: true,
+      },
+      {
+        label: 'Cerrar sesión',
+        icon: 'pi pi-fw pi-power-off',
+        command: () => {
+          this.closeModal();
+          this.logout = true;
+        },
+      },
+    ];
   }
 
   getCategories() {
@@ -108,5 +152,25 @@ export class HeaderComponent implements OnInit {
 
       this.totalProductToCart.set(totalProductos);
     });
+  }
+
+  isAutenticate() {
+    this.userService.getAutenticate().subscribe((res) => {
+      this.isLogued = res;
+    });
+  }
+
+  logOut() {
+    this.userService.setAutenticate(false);
+    localStorage.removeItem('userData');
+    sessionStorage.removeItem('favorites');
+    this.cookieService.delete('accessToken');
+    this.logout = false;
+  }
+
+  closeModal() {
+    this.filterPanel.hide();
+    this.cartPanel.hide();
+    this.userPanel.hide();
   }
 }

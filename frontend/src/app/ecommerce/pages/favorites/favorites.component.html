@@ -1,0 +1,12 @@
+<section class="favorites__container">
+  <h1>Favoritos</h1>
+  <article class="card__container" *ngIf="products.length > 0; else emptyFav">
+    <app-cards *ngFor="let product of products" [product]="product" />
+  </article>
+</section>
+
+<ng-template #emptyFav>
+  <article class="card__container">
+    <h2>No hay favoritos</h2>
+  </article>
+</ng-template>

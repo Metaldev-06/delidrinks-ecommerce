@@ -29,6 +29,7 @@ export class CartComponent implements OnInit {
 
   getCart() {
     this.productsCart = this.cartService.getCart();
+
     if (this.productsCart.length === 0) return;
     this.productServices.getCartProducts(this.productsCart).subscribe((res) => {
       this.products = res;
@@ -48,7 +49,6 @@ export class CartComponent implements OnInit {
       if (cartProduct) {
         product.attributes.quantity = cartProduct.quantity;
       }
-      // console.log(product);
       return product;
     });
   }
@@ -85,18 +85,14 @@ export class CartComponent implements OnInit {
       this.messageService.showMessage(message, messageDuration);
       return;
     }
-
-    console.log('comprar');
   }
 
   handleValidation(isValid: boolean, index: number) {
-    // this.childFormValidities = [];
     this.childFormValidities[index] = isValid;
     this.checkAllFormsValidity();
   }
 
   checkAllFormsValidity() {
-    console.log(this.childFormValidities);
     // Verificar si todos los formularios son válidos (todos true)
     const allFormsValid = this.childFormValidities.every(
       (validity) => validity === true

@@ -1,0 +1,98 @@
+<main class="register__container">
+  <section class="blob__effect">
+    <article class="card__register">
+      <div class="content__card">
+        <div class="card__title">
+          <h2>Crear Cuenta</h2>
+        </div>
+
+        <form
+          class="form__container"
+          [formGroup]="registerForm"
+          (ngSubmit)="register()"
+        >
+          <div class="inputs__container">
+            <div class="card__input">
+              <label class="required" for="name">Nombre</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Nombre"
+                formControlName="name"
+              />
+            </div>
+
+            <div class="card__input">
+              <label class="required" for="lastName">Apellido</label>
+              <input
+                id="lastName"
+                type="text"
+                placeholder="Apellido"
+                formControlName="lastName"
+              />
+            </div>
+
+            <div class="card__input">
+              <label class="required" for="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+              />
+            </div>
+
+            <div class="card__input">
+              <label class="required" for="username">Nombre de Usuario</label>
+              <input
+                id="username"
+                type="text"
+                placeholder="Nombre de Usuario"
+                formControlName="username"
+              />
+            </div>
+
+            <div class="card__input">
+              <label class="required" for="password">Contraseña</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="Contraseña"
+                formControlName="password"
+              />
+            </div>
+
+            <div class="card__input">
+              <label class="required" for="repeatPassword"
+                >Vuelva a ingregar su contraseña</label
+              >
+              <input
+                id="repeatPassword"
+                type="password"
+                placeholder="Vuelva a ingregar su contraseña"
+                formControlName="confirmPassword"
+              />
+            </div>
+          </div>
+
+          <div class="button__container">
+            <button class="button custom__button--fill" type="submit">
+              Ingresar
+            </button>
+            <span class="button__secondary" [routerLink]="['/auth/login']"
+              >¿Ya tienes una cuenta? <span>Inicia Sesión</span></span
+            >
+          </div>
+        </form>
+      </div>
+    </article>
+  </section>
+  <img
+    class="blob"
+    src="../../../../assets/images/background_optimized.jpg"
+    alt="effect"
+    loading="lazy"
+  />
+</main>
+
+<app-message />
