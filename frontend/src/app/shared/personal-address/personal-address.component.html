@@ -1,0 +1,100 @@
+<section class="phone__container">
+  <form class="form__container" [formGroup]="addressForm">
+    <article class="select__container">
+      <h2 class="form__title">Elija una dirección:</h2>
+      <select formControlName="filter" (change)="selectValue()">
+        <option
+          *ngFor="let address of personalAddress; let i = index"
+          [value]="i"
+        >
+          {{ address.name | titlecase }}
+        </option>
+      </select>
+    </article>
+
+    <article class="form__content">
+      <div class="form__control">
+        <label class="required" for="name">Nombre</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="Código de área"
+          formControlName="name"
+        />
+      </div>
+      <div class="control__container">
+        <div class="form__control">
+          <label class="required" for="province">Provincia</label>
+          <input
+            type="text"
+            id="province"
+            placeholder="Provincia"
+            formControlName="province"
+          />
+        </div>
+        <div class="form__control">
+          <label class="required" for="city">Ciudad</label>
+          <input
+            type="text"
+            id="city"
+            placeholder="Ciudad"
+            formControlName="city"
+          />
+        </div>
+      </div>
+
+      <div class="control__container">
+        <div class="form__control">
+          <label class="required" for="address">Dirección</label>
+          <input
+            type="text"
+            id="address"
+            placeholder="Dirección"
+            formControlName="address"
+          />
+        </div>
+        <div class="form__control">
+          <label class="required" for="postal_code">Código Postal</label>
+          <input
+            type="text"
+            id="postal_code"
+            placeholder="Código Postal"
+            formControlName="postal_code"
+          />
+        </div>
+      </div>
+
+      <div class="control__container">
+        <div class="form__control">
+          <label for="observations">Observaciones</label>
+          <input
+            type="text"
+            id="observations"
+            placeholder="Observaciones"
+            formControlName="observations"
+          />
+        </div>
+      </div>
+    </article>
+
+    <article class="primary__container">
+      <label for="primary">Dirección por defecto:</label>
+      <input id="primary" type="checkbox" formControlName="primary" />
+    </article>
+
+    <article class="button__container">
+      <button class="button custom__button--black" (click)="deleteNumber()">
+        <i class="pi pi-trash"></i>
+        Eliminar
+      </button>
+
+      <button
+        (click)="sendData()"
+        type="submit"
+        class="button custom__button--black"
+      >
+        Guardar
+      </button>
+    </article>
+  </form>
+</section>

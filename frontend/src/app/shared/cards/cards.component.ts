@@ -1,8 +1,5 @@
 import { Component, Input, signal, OnInit, inject } from '@angular/core';
-import {
-  Datum,
-  FavoritesLocal,
-} from 'src/app/core/interfaces/favorites.interfaces';
+import { Datum } from 'src/app/core/interfaces/favorites.interfaces';
 import { Message } from 'src/app/core/interfaces/message';
 import {
   ProductDatum,
@@ -12,7 +9,7 @@ import { User } from 'src/app/core/interfaces/user.interfaces';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { FavoritesService } from 'src/app/core/services/favorites-service/favorites.service';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-cards',
@@ -38,8 +35,8 @@ export class CardsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRelations(this.product);
-    this.favorite(this.product.attributes);
     this.isAutenticate();
+    // this.favorite(this.product.attributes);
   }
 
   getRelations(products: ProductDatum) {
@@ -89,14 +86,26 @@ export class CardsComponent implements OnInit {
   }
 
   favorite(product: PurpleAttributes) {
-    this.favoritesService.favorites$.subscribe((res) => {
-      const favorites: Datum[] = res.data;
+    this.favoritesService.favorites$.subscribe((res: any) => {
+      if (res) {
+        const favorites = JSON.parse(
+          sessionStorage.getItem('favorites') || '[]'
+        ).data;
 
-      const isFavorite = favorites?.find(
-        (favorite) => favorite.attributes.slug === product.slug
-      );
+        const isFavorite = favorites?.find(
+          (favorite: any) => favorite.attributes.slug === product.slug
+        );
 
-      this.viewIsFavorite.set(isFavorite !== undefined);
+        this.viewIsFavorite.set(isFavorite !== undefined);
+      } else {
+        const favorites: Datum[] = res.data;
+
+        const isFavorite = favorites?.find(
+          (favorite) => favorite.attributes.slug === product.slug
+        );
+
+        this.viewIsFavorite.set(isFavorite !== undefined);
+      }
     });
   }
 
@@ -105,7 +114,6 @@ export class CardsComponent implements OnInit {
       this.favoritesService
         .addFavorite(product, this.userData)
         .subscribe((res) => {
-          console.log(res);
           this.favoritesService.getFavorites(this.userData).subscribe((res) => {
             this.favoritesService.updateFavoritesInStorage(res);
           });
@@ -134,6 +142,10 @@ export class CardsComponent implements OnInit {
   isAutenticate() {
     this.userService.getAutenticate().subscribe((res) => {
       this.isLogued = res;
+
+      if (res && this.product) {
+        this.favorite(this.product.attributes);
+      }
     });
   }
 }

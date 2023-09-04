@@ -1,0 +1,39 @@
+<div class="card personal__data">
+  <i class="pi pi-user-edit"></i>
+  <div class="card__content">
+    <div class="card__info">
+      <h2>Datos Personales</h2>
+      <h3>
+        {{ userData.name | titlecase }}
+        {{ userData.lastName | titlecase }}
+      </h3>
+      <p>@{{ userData.username | titlecase }}</p>
+      <p>{{ userData.email }}</p>
+    </div>
+
+    <div class="button__container">
+      <button class="button custom__button--line">
+        <i class="pi pi-lock"></i>
+        Cambiar contraseña
+      </button>
+
+      <button class="button custom__button--line" (click)="showDialog()">
+        <i class="pi pi-pencil"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Datos Personales"
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="personalDataDialog"
+  [style]="{ width: '95%', maxWidth: '800px' }"
+>
+  <app-personal-data
+    [userData]="userData"
+    *ngIf="userData"
+    (formDataSaved)="onFormDataSaved($event)"
+  />
+</p-dialog>

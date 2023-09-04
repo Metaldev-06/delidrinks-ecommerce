@@ -122,6 +122,21 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+.custom__button--black {
+  background-color: $color-black;
+  color: $color-white;
+
+  &:hover {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
+  &:active {
+    background-color: $color-grey;
+    transform: scale(0.9);
+  }
+}
+
 .custom__button--line {
   backdrop-filter: $card-backdrop;
   -webkit-backdrop-filter: $card-backdrop;

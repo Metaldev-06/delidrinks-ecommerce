@@ -19,6 +19,13 @@ import { CartComponent } from './cart/cart.component';
 import { CardCartComponent } from './card-cart/card-cart.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './message/message.component';
+import { IsPrimaryPipe } from './pipes/isPrimary/is-primary.pipe';
+import { PersonalDataComponent } from './personal-data/personal-data.component';
+import { NumberPhoneComponent } from './number-phone/number-phone.component';
+import { PersonalDataCardComponent } from './personal-data-card/personal-data-card.component';
+import { NumberPhoneCardComponent } from './number-phone-card/number-phone-card.component';
+import { PersonalAddressCardComponent } from './personal-address-card/personal-address-card.component';
+import { PersonalAddressComponent } from './personal-address/personal-address.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +45,13 @@ import { MessageComponent } from './message/message.component';
     CartComponent,
     CardCartComponent,
     MessageComponent,
+    IsPrimaryPipe,
+    PersonalDataComponent,
+    NumberPhoneComponent,
+    PersonalDataCardComponent,
+    NumberPhoneCardComponent,
+    PersonalAddressCardComponent,
+    PersonalAddressComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +74,10 @@ import { MessageComponent } from './message/message.component';
     LoaderComponent,
     CartComponent,
     MessageComponent,
+    IsPrimaryPipe,
+    PersonalDataCardComponent,
+    NumberPhoneCardComponent,
+    PersonalAddressCardComponent,
   ],
 })
 export class SharedModule {}

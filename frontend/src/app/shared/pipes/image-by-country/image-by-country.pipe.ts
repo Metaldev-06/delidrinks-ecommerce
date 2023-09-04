@@ -12,8 +12,6 @@ export class ImageByCountryPipe implements PipeTransform {
   };
 
   transform(value: string): string {
-    console.log(value);
-
     return this.countryImages[value] || '';
   }
 }

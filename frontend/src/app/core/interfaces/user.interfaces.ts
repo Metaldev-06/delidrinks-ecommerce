@@ -95,3 +95,26 @@ export interface Favorites {
   publishedAt: string;
   updatedAt: string;
 }
+
+export interface UserResponse {
+  id: number;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  birthday_date: string;
+  name: string;
+  lastName: string;
+}
+
+export interface UserBody {
+  username: string;
+  email: string;
+  name: string;
+  lastName: string;
+  password: string;
+  birthday_date: string;
+}

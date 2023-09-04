@@ -110,7 +110,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   selectValue() {
-    console.log(this.selectForm.value.filter);
     this.getProductByCategories(
       this.category,
       this.subcategory,

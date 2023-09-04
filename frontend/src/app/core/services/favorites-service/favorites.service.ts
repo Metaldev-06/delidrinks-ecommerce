@@ -20,12 +20,22 @@ export class FavoritesService {
 
   constructor() {
     this.getFavoritesFromStorage();
+    // this.loadFavorites();
   }
 
   private getFavoritesFromStorage() {
     const favorites = JSON.parse(sessionStorage.getItem('favorites') || '[]');
     this.favoritesSubject.next(favorites);
   }
+
+  // private loadFavorites() {
+  //   const userData: User = JSON.parse(localStorage.getItem('userData') || '{}');
+  //   if (userData.id) {
+  //     this.getFavorites(userData).subscribe((favorites) => {
+  //       this.updateFavoritesInStorage(favorites);
+  //     });
+  //   }
+  // }
 
   public updateFavoritesInStorage(favorites: FavoritesLocal[]) {
     sessionStorage.removeItem('favorites');

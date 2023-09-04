@@ -1,1 +1,27 @@
-<p>user works!</p>
+<section class="user__container" *ngIf="userData">
+  <h1>Mi Cuenta</h1>
+  <div class="user__content">
+    <article class="user__detail">
+      <div class="user__image">
+        <img [src]="image()" [alt]="userData.name" fill />
+        <button class="button custom__button--fill">Actualizar imagen</button>
+      </div>
+    </article>
+
+    <article class="user__info">
+      <app-personal-data-card [userData]="userData" />
+
+      <app-number-phone-card
+        [phoneData]="phones()"
+        [userData]="userData"
+        (updateData)="getUserData($event)"
+      />
+
+      <app-personal-address-card
+        [addresses]="addresses()"
+        [userData]="userData"
+        (updateData)="getUserData($event)"
+      />
+    </article>
+  </div>
+</section>

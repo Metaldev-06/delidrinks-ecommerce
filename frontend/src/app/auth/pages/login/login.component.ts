@@ -9,9 +9,9 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Message } from 'src/app/core/interfaces/message';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
-import { UserService } from 'src/app/core/services/user.service';
 import { FavoritesService } from 'src/app/core/services/favorites-service/favorites.service';
 import { User } from 'src/app/core/interfaces/user.interfaces';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   getFavorites(user: User) {
     this.favoritesService
       .getFavorites(user)
-      .pipe(take(1))
+      .pipe(take(2))
       .subscribe({
         next: (res) => {
           sessionStorage.setItem('favorites', JSON.stringify(res));

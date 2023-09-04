@@ -1,8 +1,8 @@
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../core/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../core/services/user/user.service';
 
 @Component({
   selector: 'app-ecommerce',
@@ -39,6 +39,8 @@ export class EcommerceComponent implements OnInit {
       this.userService.setAutenticate(true);
     } else {
       this.userService.setAutenticate(false);
+      localStorage.removeItem('userData');
+      sessionStorage.removeItem('favorites');
     }
   }
 }

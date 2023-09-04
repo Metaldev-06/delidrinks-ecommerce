@@ -1,0 +1,52 @@
+<div class="card personal__data">
+  <i class="pi pi-phone"></i>
+  <div class="card__content">
+    <div class="card__info" *ngIf="phoneData.length > 0; else emptyPhones">
+      <h2>Número de teléfonos</h2>
+      <div class="address__container" *ngFor="let phone of phoneData">
+        <h3>
+          “{{ phone.name | titlecase }}” -
+          {{ phone.primary | isPrimary }}
+        </h3>
+        <p>{{ phone.area_code }} - {{ phone.number_phone | titlecase }}</p>
+      </div>
+    </div>
+
+    <div class="button__container">
+      <button class="button custom__button--line">
+        <i class="pi pi-phone"></i>
+        Añadir número
+      </button>
+
+      <button
+        class="button custom__button--line"
+        (click)="shownumberPhoneDialog()"
+      >
+        <i class="pi pi-pencil"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyPhones>
+  <div class="card__info">
+    <h2>Número de teléfonos</h2>
+    <p>No hay números agregadas</p>
+  </div>
+</ng-template>
+
+<p-dialog
+  header="Editar número de teléfono"
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="numberPhoneDialog"
+  [style]="{ width: '95%', maxWidth: '800px' }"
+>
+  <app-number-phone
+    [numberPhone]="phoneData"
+    [userData]="userData"
+    *ngIf="phoneData.length > 0"
+    (numberFormData)="onFormNumberDataSaved($event)"
+    (deletedNumber)="deletNumber($event)"
+  />
+</p-dialog>

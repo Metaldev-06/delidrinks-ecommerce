@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:1337/api',
+  apiUrl: 'https://delidrinks-ecommerce-production.up.railway.app/api',
 };

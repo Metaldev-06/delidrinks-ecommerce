@@ -1,0 +1,42 @@
+<section class="data__container">
+  <form
+    class="form__container"
+    [formGroup]="personalDataForm"
+    (ngSubmit)="saveData()"
+  >
+    <article class="form__container--top">
+      <div class="form__control">
+        <label for="email">Correo</label>
+        <input
+          class="disabled"
+          type="email"
+          id="email"
+          formControlName="email"
+        />
+      </div>
+      <div class="form__container--bottom">
+        <div class="form__control">
+          <label class="required" for="name">Nombre</label>
+          <input type="text" id="name" formControlName="name" />
+        </div>
+        <div class="form__control">
+          <label class="required" for="lastName">Apellido</label>
+          <input type="text" id="lastName" formControlName="lastName" />
+        </div>
+        <div class="form__control">
+          <label class="required" for="username">Nombre de Usuario</label>
+          <input type="text" id="username" formControlName="username" />
+        </div>
+        <div class="form__control">
+          <label for="birthDate">Fecha de cumpleaños</label>
+          <input type="date" id="birthDate" formControlName="birthday_date" />
+        </div>
+      </div>
+    </article>
+
+    <article class="button__container">
+      <span class="required">Campo requerido</span>
+      <button class="button custom__button--black">Guardar</button>
+    </article>
+  </form>
+</section>

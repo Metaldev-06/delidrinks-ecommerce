@@ -6,9 +6,9 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 import { CategoryDatum } from 'src/app/core/interfaces/category.interfaces';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
-import { UserService } from 'src/app/core/services/user.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/core/interfaces/user.interfaces';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-header',

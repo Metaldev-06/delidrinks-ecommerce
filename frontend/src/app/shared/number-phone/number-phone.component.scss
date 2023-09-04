@@ -1,0 +1,96 @@
+@import "src/styles.scss";
+
+.phone__container {
+  width: 100%;
+
+  .form__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .select__container {
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+
+      select {
+        width: 200px;
+        height: 45px;
+        border-radius: $border-radius-x1;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+
+    .form__content {
+      width: 100%;
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
+      // align-items: center;
+      justify-content: space-between;
+
+      .form__control {
+        width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+
+      .control__container {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+      }
+    }
+
+    .primary__container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      input {
+        width: 50px;
+        cursor: pointer;
+      }
+    }
+
+    .button__container {
+      width: 100%;
+      // max-width: 200px;
+      align-self: flex-end;
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+
+      .button {
+        width: 100%;
+        max-width: 300px;
+        &:nth-child(1) {
+          background-color: rgb(220, 23, 23);
+
+          &:hover {
+            background-color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
+
+input {
+  width: 100%;
+  // max-width: 184px;
+  padding: 1rem;
+  height: 1.8rem;
+  border-radius: $border-radius-x1;
+  border: 1px solid $color-grey;
+  // background-color: $color-disabled;
+  backdrop-filter: $auth-backdrop;
+  -webkit-backdrop-filter: $auth-backdrop;
+  background-color: $auth-color;
+}

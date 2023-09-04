@@ -22,6 +22,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 export class MessageComponent {
   showMessage = false;
   message: Message[] = [];
+  hasMessages = false;
 
   private messagesToRemove: Set<number> = new Set();
   private readonly messageService = inject(MessageService);
@@ -30,10 +31,21 @@ export class MessageComponent {
     this.messageService.message$.subscribe(() => {
       this.message = this.messageService.getMessageQueue();
       this.showMessage = true;
+      if (this.message.length > 0) {
+        this.hasMessages = true;
+      } else {
+        this.hasMessages = false;
+      }
     });
   }
 
   animationDone(index: number) {
+    if (this.message.length === 0) {
+      setTimeout(() => {
+        this.hasMessages = false; // Oculta el componente cuando no hay más mensajes
+      }, 300);
+    }
+
     if (this.messagesToRemove.has(index)) {
       this.message.splice(index, 1);
       this.messagesToRemove.delete(index);

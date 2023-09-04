@@ -15,7 +15,7 @@ import { FavoritesService } from 'src/app/core/services/favorites-service/favori
 import { MessageService } from 'src/app/core/services/message-services/message.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 import { RecipesService } from 'src/app/core/services/recipe-services/recipes.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-product',
@@ -124,8 +124,6 @@ export class ProductComponent implements OnInit {
   }
 
   favorite(product: PurpleAttributes) {
-    console.log(product);
-
     this.favoritesService.favorites$.subscribe((res) => {
       const favorites: Datum[] = res.data;
       const isFavorite = favorites.find(
@@ -141,7 +139,6 @@ export class ProductComponent implements OnInit {
       this.favoritesService
         .addFavorite(this.product2, this.userData)
         .subscribe((res) => {
-          console.log(res);
           this.favoritesService.getFavorites(this.userData).subscribe((res) => {
             this.favoritesService.updateFavoritesInStorage(res);
           });

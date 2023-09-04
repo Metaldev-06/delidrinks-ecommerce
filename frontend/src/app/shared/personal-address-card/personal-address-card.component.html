@@ -1,0 +1,53 @@
+<div class="card personal__data">
+  <i class="pi pi-map-marker"></i>
+  <div class="card__content">
+    <div class="card__info" *ngIf="addresses.length > 0; else emptyAddress">
+      <h2>Direcciones</h2>
+      <div class="address__container" *ngFor="let address of addresses">
+        <h3>
+          “{{ address.name | titlecase }}” -
+          {{ address.primary | isPrimary }}
+        </h3>
+        <p>{{ address.province | titlecase }}</p>
+        <p>{{ address.postal_code }} - {{ address.city | titlecase }}</p>
+        <p>{{ address.address | titlecase }}</p>
+      </div>
+    </div>
+
+    <div class="button__container">
+      <button class="button custom__button--line">
+        <i class="pi pi-map"></i>
+        Añadir dirección
+      </button>
+
+      <button
+        class="button custom__button--line"
+        (click)="shownumberPhoneDialog()"
+      >
+        <i class="pi pi-pencil"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #emptyAddress>
+  <div class="card__info">
+    <h2>Direcciones</h2>
+    <p>No hay direcciones agregadas</p>
+  </div>
+</ng-template>
+
+<p-dialog
+  header="Editar dirección"
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="addressDialog"
+  [style]="{ width: '95%', maxWidth: '800px' }"
+>
+  <app-personal-address
+    [personalAddress]="addresses"
+    [userData]="userData"
+    (addressFormData)="onFormAddressSaved($event)"
+    (deletedaddress)="deletAddress($event)"
+  />
+</p-dialog>

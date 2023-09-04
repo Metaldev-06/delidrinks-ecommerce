@@ -83,6 +83,12 @@
     "description": {
       "type": "text",
       "required": true
+    },
+    "order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "products"
     }
   }
 }
