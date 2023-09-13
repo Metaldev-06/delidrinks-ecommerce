@@ -4,6 +4,9 @@ import { TreeModule } from 'primeng/tree';
 import { PaginatorModule } from 'primeng/paginator';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { DialogModule } from 'primeng/dialog';
+import { AccordionModule } from 'primeng/accordion';
+import { RadioButtonModule } from 'primeng/radiobutton';
+
 @NgModule({
   exports: [
     OverlayPanelModule,
@@ -11,6 +14,8 @@ import { DialogModule } from 'primeng/dialog';
     PaginatorModule,
     TieredMenuModule,
     DialogModule,
+    AccordionModule,
+    RadioButtonModule,
   ],
 })
 export class PrimeNgModule {}

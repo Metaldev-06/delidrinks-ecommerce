@@ -1,0 +1,27 @@
+<form
+  [formGroup]="shippingMethodForm"
+  (ngSubmit)="sendData()"
+  class="shipping__container"
+>
+  <div
+    *ngFor="let method of categories"
+    class="field__checkbox"
+    [ngStyle]="{
+      background:
+        shippingMethodForm.value.selectedMethod === method
+          ? '#DBFDF7'
+          : '#E7E7E7'
+    }"
+  >
+    <p-radioButton
+      [inputId]="method.shipping_method"
+      [value]="method"
+      formControlName="selectedMethod"
+    ></p-radioButton>
+    <label [for]="method.shipping_method">{{ method.name }}</label>
+  </div>
+
+  <div class="button__container">
+    <button class="button custom__button--black">Guardar</button>
+  </div>
+</form>

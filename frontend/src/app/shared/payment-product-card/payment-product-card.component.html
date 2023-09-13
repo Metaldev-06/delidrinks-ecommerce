@@ -1,0 +1,17 @@
+<div class="product__card" [routerLink]="['/product', product.attributes.slug]">
+  <img [src]="product | ImagePipe" [alt]="product.attributes.name" width="90" />
+
+  <div class="product__info">
+    <h4>
+      {{ product.attributes.brand | brandPipe | titlecase }} -
+      {{ product.attributes.name | titlecase }}
+    </h4>
+
+    <p>
+      {{ product.attributes.quantity }}x
+      <span class="bold">{{
+        product.attributes.price | currency : "ARS" : "symbol-narrow"
+      }}</span>
+    </p>
+  </div>
+</div>

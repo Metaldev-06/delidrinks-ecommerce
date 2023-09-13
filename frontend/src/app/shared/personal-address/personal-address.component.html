@@ -3,6 +3,7 @@
     <article class="select__container">
       <h2 class="form__title">Elija una dirección:</h2>
       <select formControlName="filter" (change)="selectValue()">
+        <option value="" hidden selected>Dirección</option>
         <option
           *ngFor="let address of personalAddress; let i = index"
           [value]="i"
@@ -77,13 +78,20 @@
       </div>
     </article>
 
-    <article class="primary__container">
+    <article class="primary__container" *ngIf="showInfo">
       <label for="primary">Dirección por defecto:</label>
       <input id="primary" type="checkbox" formControlName="primary" />
     </article>
 
-    <article class="button__container">
-      <button class="button custom__button--black" (click)="deleteNumber()">
+    <article
+      class="button__container"
+      [style]="showInfo ? {} : { display: 'flex', justifyContent: 'flex-end' }"
+    >
+      <button
+        class="button custom__button--black delete"
+        (click)="deleteNumber()"
+        *ngIf="showInfo"
+      >
         <i class="pi pi-trash"></i>
         Eliminar
       </button>
@@ -92,6 +100,7 @@
         (click)="sendData()"
         type="submit"
         class="button custom__button--black"
+        [ngClass]="showInfo ? 'custom__button--black' : 'custom__button--fill'"
       >
         Guardar
       </button>

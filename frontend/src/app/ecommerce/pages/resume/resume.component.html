@@ -1,0 +1,71 @@
+<section class="resume__container" *ngIf="order">
+  <ng-container *ngIf="order.completed; else wasItPaid">
+    <article class="success__pay">
+      <i class="pi pi-check"></i> ¡Felicitaciones! Tu compra se ha realizado con
+      éxito
+    </article>
+  </ng-container>
+
+  <article class="products__container">
+    <div class="products__content">
+      <h3>Tu pedido</h3>
+
+      <app-payment-product-card
+        *ngFor="let product of products"
+        [product]="product"
+      />
+    </div>
+
+    <span class="separator"></span>
+
+    <div class="products__info">
+      <h3>Detalle del pedido</h3>
+
+      <app-payment-info-card [productInfo]="products" [orderDetail]="order" />
+    </div>
+  </article>
+
+  <article class="cards__container">
+    <i class="pi pi-truck"></i>
+
+    <div class="shipping__card">
+      <h2>Detalle de Envío:</h2>
+
+      <ng-container
+        *ngIf="
+          order.shipping_company && order.shipping_code;
+          else emptyShippingInfo
+        "
+      >
+        <p class="description">
+          Puedes copiar el código de seguimiento en la página de la empresa para
+          ver el estado de tu envio colocando el código de seguimiento
+        </p>
+
+        <div>
+          <p class="info">
+            <span class="bold">Empresa:</span>
+            {{ order.shipping_company | titlecase }}
+          </p>
+          <p class="info">
+            <span class="bold">Código de seguimiento:</span>
+            {{ order.shipping_code }}
+          </p>
+        </div>
+      </ng-container>
+    </div>
+  </article>
+</section>
+
+<ng-template #emptyShippingInfo>
+  <div class="empty__shipping">
+    <h2 class="bold">Estamos preparando tú envío</h2>
+    <p>Proximamente veras reflejado tu número de seguimiento</p>
+  </div>
+</ng-template>
+
+<ng-template #wasItPaid>
+  <article class="denied__pay">
+    <i class="pi pi-times"></i> Su compra no se realizó correctamente!
+  </article>
+</ng-template>

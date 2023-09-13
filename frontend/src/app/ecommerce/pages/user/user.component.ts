@@ -30,6 +30,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.subscription = this.userService.getUser().subscribe((res) => {
       this.userData = res;
       this.getRelations(res);
+      this.userService.updateLocalUser(res);
     });
   }
 

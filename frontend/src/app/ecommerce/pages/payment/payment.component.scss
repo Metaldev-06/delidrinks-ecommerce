@@ -1,0 +1,123 @@
+@import "src/styles.scss";
+
+.payment__container {
+  width: 95%;
+  max-width: $max-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .products__container {
+    width: 100%;
+    min-height: 300px;
+    padding: 1rem;
+    background-color: $color-white;
+    border-radius: $border-radius-x1;
+    color: $color-black;
+    display: flex;
+    gap: 1rem;
+
+    .products__content,
+    .products__info {
+      // display: flex;
+      // flex-direction: column;
+      // align-items: center;
+      flex-grow: 1;
+    }
+
+    .products__content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .separator {
+      border: 1px solid $color-soft-gray;
+    }
+
+    .products__info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  .user__container {
+    width: 100%;
+    max-width: calc($max-width / 2);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-self: flex-end;
+
+    .card__container {
+      padding: 1rem;
+      background-color: $color-white;
+      color: $color-black;
+      border-radius: $border-radius-x2;
+
+      h2 {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        i {
+          font-size: 2rem;
+          align-self: flex-start;
+        }
+      }
+
+      .button__container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 1rem;
+
+        .button {
+          width: 100%;
+          max-width: 300px;
+          font-size: 1rem;
+        }
+      }
+
+      .card__info {
+        padding: 1rem 0;
+        display: flex;
+        gap: 3rem;
+        justify-content: space-between;
+
+        .card__info--left {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          p {
+            font-size: 1.3rem;
+          }
+        }
+
+        i {
+          font-weight: bold;
+          color: $color-white;
+          padding: 0.5rem;
+          border-radius: $border-radius-x1;
+          background-color: $color-grey;
+        }
+      }
+    }
+  }
+}
+
+.bold {
+  font-size: 1rem;
+}
+
+:host ::ng-deep app-personal-data-card .card {
+  background-color: $color-white;
+  color: $color-black;
+}
+
+:host ::ng-deep app-personal-address-card .card {
+  background-color: $color-white;
+  color: $color-black;
+}

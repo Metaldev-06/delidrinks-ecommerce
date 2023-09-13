@@ -21,6 +21,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 export class PersonalAddressCardComponent implements OnInit {
   @Input() addresses!: Address[];
   @Input() userData!: User;
+  @Input() showOption: boolean = true;
   @Output() updateData = new EventEmitter<void>();
 
   public addressDialog: boolean = false;

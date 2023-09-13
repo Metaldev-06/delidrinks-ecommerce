@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { User, UserBody, UserResponse } from '../../interfaces/user.interfaces';
 import { PhoneBody, PhonesResponse } from '../../interfaces/phones.interfaces';
-import { CookieService } from 'ngx-cookie-service';
+// import { CookieService } from 'ngx-cookie-service';
 import {
   AddressBody,
   AddressResponse,
@@ -17,14 +17,23 @@ export class UserService {
   private isAutenticate: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
+  private userData: BehaviorSubject<User> = new BehaviorSubject<User>(
+    {} as User
+  );
+  user$ = this.userData.asObservable();
+
   private token!: string;
 
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
-  private readonly cookieService = inject(CookieService);
+  // private readonly cookieService = inject(CookieService);
 
   constructor() {
-    this.token = this.cookieService.get('accessToken');
+    const userDataLocalStorage = localStorage.getItem('userData');
+    if (userDataLocalStorage) {
+      this.userData.next(JSON.parse(userDataLocalStorage));
+    }
+    // this.token = this.cookieService.get('accessToken');
   }
 
   //!USER
@@ -76,9 +85,6 @@ export class UserService {
       },
     };
 
-    console.log(data);
-    console.log(form);
-
     return this.http.put<AddressResponse>(
       `${this.baseUrl}/addresses/${form.id}`,
       data
@@ -91,11 +97,18 @@ export class UserService {
   }
 
   //!AUTH
-  getAutenticate(): Observable<boolean> {
+  public getAutenticate(): Observable<boolean> {
     return this.isAutenticate.asObservable();
   }
 
-  setAutenticate(value: boolean): void {
+  public setAutenticate(value: boolean): void {
     this.isAutenticate.next(value);
+  }
+
+  //!UPDATE LOCALUSERDATA
+
+  public updateLocalUser(user: User) {
+    this.userData.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 }

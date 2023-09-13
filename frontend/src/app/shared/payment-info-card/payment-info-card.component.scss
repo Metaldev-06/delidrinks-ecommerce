@@ -1,0 +1,26 @@
+@import "src/styles.scss";
+
+.payment__info {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+
+  .products__info--left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .products__info--rigth {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+.bold {
+  font-size: 1rem;
+}

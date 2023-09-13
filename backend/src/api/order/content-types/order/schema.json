@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "products": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product.product",
-      "mappedBy": "order"
-    },
     "users_permissions_user": {
       "type": "relation",
       "relation": "manyToOne",
@@ -36,6 +30,46 @@
     "slug": {
       "type": "uid",
       "targetField": "name"
+    },
+    "addresses": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::address.address",
+      "inversedBy": "orders"
+    },
+    "phones": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::phone.phone",
+      "inversedBy": "orders"
+    },
+    "shipping_method": {
+      "type": "enumeration",
+      "enum": [
+        "retiro en puerta",
+        "motomandado",
+        "a domicilio",
+        "en sucursal"
+      ],
+      "required": true
+    },
+    "products": {
+      "type": "json",
+      "required": true
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "shipping_price": {
+      "type": "integer",
+      "required": true
+    },
+    "shipping_company": {
+      "type": "string"
+    },
+    "shipping_code": {
+      "type": "string"
     }
   }
 }

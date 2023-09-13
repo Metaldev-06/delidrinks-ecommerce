@@ -49,6 +49,23 @@ const routes: Routes = [
         canActivate: [isAutenticateGuard],
         canMatch: [isAutenticateMatchGuard],
       },
+      {
+        path: 'checkout',
+        loadChildren: () =>
+          import('./pages/checkout/checkout.module').then(
+            (m) => m.CheckoutModule
+          ),
+      },
+      {
+        path: 'payment/:slug',
+        loadChildren: () =>
+          import('./pages/payment/payment.module').then((m) => m.PaymentModule),
+      },
+      {
+        path: 'resume/:slug',
+        loadChildren: () =>
+          import('./pages/resume/resume.module').then((m) => m.ResumeModule),
+      },
     ],
   },
 ];

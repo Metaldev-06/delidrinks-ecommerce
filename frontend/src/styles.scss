@@ -20,6 +20,9 @@ $color-disabled: #999999;
 $color-soft-gray: #e7e7e7;
 $color-complementary: #1562f0;
 $color-red: #d12424;
+$color-glass: #343434;
+$color-card-glass: #464646;
+$color-success: rgb(48, 216, 48);
 
 //GLASSMORPHISM
 $input-background: rgba(255, 255, 255, 0.1);
@@ -125,6 +128,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .custom__button--black {
   background-color: $color-black;
   color: $color-white;
+  border: 1px solid $color-black;
 
   &:hover {
     background-color: $color-white;
@@ -138,9 +142,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .custom__button--line {
-  backdrop-filter: $card-backdrop;
-  -webkit-backdrop-filter: $card-backdrop;
-  background-color: $card-color;
+  background-color: $color-card-glass;
   color: $color-white;
 
   &:hover {
@@ -237,6 +239,11 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 1.2rem;
   padding-left: 0.3rem;
   color: red;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 1.3rem;
 }
 
 $breakpoints: (

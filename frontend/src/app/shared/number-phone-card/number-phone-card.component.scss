@@ -15,9 +15,10 @@
   min-height: 130px;
   padding: 1.5rem;
   border-radius: $border-radius-x2;
-  backdrop-filter: $card-backdrop;
-  -webkit-backdrop-filter: $card-backdrop;
-  background-color: $card-color;
+  // backdrop-filter: $card-backdrop;
+  // -webkit-backdrop-filter: $card-backdrop;
+  // background-color: $card-color;
+  background-color: $color-card-glass;
 
   i {
     font-size: 2rem;

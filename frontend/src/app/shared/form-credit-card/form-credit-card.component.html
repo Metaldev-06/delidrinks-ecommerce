@@ -1,0 +1,81 @@
+<div class="card__container">
+  <h2>
+    <i class="pi pi-credit-card"></i>
+    Método De Pago
+  </h2>
+  <form
+    class="form__container"
+    [formGroup]="paymentForm"
+    (ngSubmit)="sendPay()"
+  >
+    <div class="form__content">
+      <div class="number__card">
+        <label for="nameCard">Nombre de la tarjeta</label>
+        <input
+          id="nameCard"
+          type="text"
+          placeholder="Jhonn Doe"
+          formControlName="nameCard"
+        />
+      </div>
+
+      <div class="number__card">
+        <label for="cardNumber">Número de la tarjeta</label>
+        <input
+          id="cardNumber"
+          type="text"
+          placeholder="0000 0000 0000 0000"
+          formControlName="cardNumber"
+        />
+      </div>
+
+      <div class="form__control--container">
+        <div class="form__control">
+          <label for="expirationDate">Fecha de vencimiento</label>
+          <input
+            id="expirationDate"
+            type="text"
+            placeholder="MM/AA"
+            formControlName="expirationDate"
+          />
+        </div>
+
+        <div class="form__control">
+          <label for="cardCode">Código de verificación</label>
+          <input
+            id="cardCode"
+            type="text"
+            placeholder="000"
+            formControlName="cardCode"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="purchaser__container">
+      <div class="purchaser__description">
+        <div class="privacy">
+          <p>
+            Los datos personales se utilizaran para procesar tu pedido, mejorar
+            tu experiencia en esta web y otros propósitos descriptos en nuestra
+            política de privacidad.
+          </p>
+        </div>
+
+        <div class="conditions">
+          <input id="terms" type="checkbox" formControlName="check" />
+          <label for="terms">
+            He leído y estoy de acuerdo con los términos y condiciones de la
+            web.
+          </label>
+        </div>
+      </div>
+
+      <div class="button__container">
+        <button class="button custom__button--black">
+          <p>Confirmar pago</p>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

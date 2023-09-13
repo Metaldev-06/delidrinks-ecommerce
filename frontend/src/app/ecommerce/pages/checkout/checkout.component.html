@@ -1,0 +1,78 @@
+<section class="checkout__container">
+  <h2>Finalizar compra</h2>
+
+  <article class="checkout__content">
+    <div class="cart__container">
+      <app-cart class="cart" [showOptions]="false" />
+    </div>
+
+    <form class="checkout__info">
+      <p-accordion class="acordion" [multiple]="true" [activeIndex]="[0]">
+        <p-accordionTab [style]="{ backgroundColor: 'red' }">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center">
+              <i class="pi pi-user"></i>
+              <span class="vertical-align-middle">Datos personales</span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <app-personal-data-card
+              [userData]="personalData"
+              [showOptions]="false"
+              *ngIf="personalData"
+            />
+          </ng-template>
+        </p-accordionTab>
+
+        <p-accordionTab>
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center">
+              <i class="pi pi-map-marker"></i>
+              <span class="vertical-align-middle">Dirección de entrega</span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <app-personal-address
+              [userData]="personalData"
+              [personalAddress]="shippingDetails"
+              [showInfo]="false"
+              (addressFormData)="getShipphingDetail($event)"
+            />
+          </ng-template>
+        </p-accordionTab>
+
+        <p-accordionTab>
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center">
+              <i class="pi pi-car"></i>
+              <span class="vertical-align-middle"
+                >Seleccionar método de envío</span
+              >
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <app-shipping-method
+              (shippingMethodData)="getShipphingMethod($event)"
+            />
+          </ng-template>
+        </p-accordionTab>
+
+        <p-accordionTab>
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center">
+              <i class="pi pi-credit-card"></i>
+              <span class="vertical-align-middle">Pagar</span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="content">
+            <div class="button__container">
+              <button class="button custom__button--black" (click)="payment()">
+                Continuar con la compra
+              </button>
+            </div>
+          </ng-template>
+        </p-accordionTab>
+      </p-accordion>
+    </form>
+  </article>
+</section>

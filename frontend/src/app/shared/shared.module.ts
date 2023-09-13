@@ -26,6 +26,12 @@ import { PersonalDataCardComponent } from './personal-data-card/personal-data-ca
 import { NumberPhoneCardComponent } from './number-phone-card/number-phone-card.component';
 import { PersonalAddressCardComponent } from './personal-address-card/personal-address-card.component';
 import { PersonalAddressComponent } from './personal-address/personal-address.component';
+import { ShippingMethodComponent } from './shipping-method/shipping-method.component';
+import { ImagePipe } from './pipes/image/image.pipe';
+import { PaymentProductCardComponent } from './payment-product-card/payment-product-card.component';
+import { BrandPipePipe } from './pipes/brand-pipe/brand-pipe.pipe';
+import { PaymentInfoCardComponent } from './payment-info-card/payment-info-card.component';
+import { FormCreditCardComponent } from './form-credit-card/form-credit-card.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +58,12 @@ import { PersonalAddressComponent } from './personal-address/personal-address.co
     NumberPhoneCardComponent,
     PersonalAddressCardComponent,
     PersonalAddressComponent,
+    ShippingMethodComponent,
+    ImagePipe,
+    PaymentProductCardComponent,
+    BrandPipePipe,
+    PaymentInfoCardComponent,
+    FormCreditCardComponent,
   ],
   imports: [
     CommonModule,
@@ -78,6 +90,13 @@ import { PersonalAddressComponent } from './personal-address/personal-address.co
     PersonalDataCardComponent,
     NumberPhoneCardComponent,
     PersonalAddressCardComponent,
+    PersonalAddressComponent,
+    ShippingMethodComponent,
+    ImagePipe,
+    PaymentProductCardComponent,
+    BrandPipePipe,
+    PaymentInfoCardComponent,
+    FormCreditCardComponent,
   ],
 })
 export class SharedModule {}

@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.getFavorites(res);
-          localStorage.setItem('userData', JSON.stringify(res));
+          this.userService.updateLocalUser(res);
           this.router.navigate(['/']);
         },
         error: (err) => {

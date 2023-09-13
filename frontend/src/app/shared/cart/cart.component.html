@@ -16,7 +16,7 @@
       <span>{{ totalProductPrice | currency : "ARS" : "symbol-narrow" }}</span>
     </p>
 
-    <div class="button__container">
+    <div class="button__container" *ngIf="showOptions">
       <!-- <button class="button custom__button--line">Ver carrito</button> -->
       <button class="button custom__button--fill" (click)="purchase()">
         Comprar

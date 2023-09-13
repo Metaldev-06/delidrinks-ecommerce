@@ -20,6 +20,7 @@ import { MessageService } from 'src/app/core/services/message-services/message.s
 export class PersonalAddressComponent implements OnInit {
   @Input() personalAddress!: Address[];
   @Input() userData!: User;
+  @Input() showInfo: boolean = true;
   @Output() addressFormData = new EventEmitter<AddressBody>();
   @Output() deletedaddress = new EventEmitter<AddressBody>();
 

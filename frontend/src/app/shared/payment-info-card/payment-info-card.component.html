@@ -1,0 +1,33 @@
+<div class="payment__info">
+  <div class="products__info--left">
+    <p><span class="bold">Número de orden: </span>{{ orderDetail.name }}</p>
+    <!-- <p><span class="bold">IVA: </span>21%</p> -->
+    <p>
+      <span class="bold">Fecha de pedido: </span>{{ orderDetail.date | date }}
+    </p>
+  </div>
+  <div class="products__info--rigth">
+    <p>
+      Subtotal:
+      <span class="bold">{{
+        subtotal | currency : "ARS" : "symbol-narrow"
+      }}</span>
+    </p>
+    <p>
+      Envio:
+      <span class="bold">{{
+        shippingPrince | currency : "ARS" : "symbol-narrow"
+      }}</span>
+    </p>
+    <!-- <p>
+      IVA:
+      <span class="bold">{{
+        subtotal * 0.21 | currency : "ARS" : "symbol-narrow"
+      }}</span>
+    </p> -->
+    <p>
+      Total:
+      <span class="bold">{{ total | currency : "ARS" : "symbol-narrow" }}</span>
+    </p>
+  </div>
+</div>

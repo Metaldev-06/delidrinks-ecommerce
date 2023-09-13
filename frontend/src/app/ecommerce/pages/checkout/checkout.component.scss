@@ -1,0 +1,77 @@
+@import "src/styles.scss";
+
+.checkout__container {
+  width: 95%;
+  max-width: $max-width;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .checkout__content {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+
+    .cart__container {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      justify-content: center;
+      flex-grow: 1;
+      padding: 2rem 1rem;
+      background-color: $color-white;
+      border-radius: $border-radius-x1;
+      align-self: flex-start;
+    }
+
+    .checkout__info {
+      flex-grow: 2;
+
+      .button__container {
+        display: flex;
+        justify-content: flex-end;
+        .button {
+          width: 100%;
+          max-width: 300px;
+          font-size: 1rem;
+        }
+      }
+
+      .vertical-align-middle {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}
+
+// :host ::ng-deep .p-accordion-content {
+//   // background-color: $color-black;
+//   color: $color-white;
+//   border: none;
+//   background-color: $color-glass !important;
+// }
+// :host ::ng-deep .p-accordion-header-link {
+//   color: $color-white !important;
+//   background-color: $color-glass !important;
+
+//   border: none !important;
+// }
+// :host ::ng-deep .form__container {
+//   input {
+//     color: $color-white;
+
+//     &::placeholder {
+//       color: $color-grey;
+//     }
+//   }
+// }
+
+// :host ::ng-deep .p-element { //FLECHAS
+//   background-color: $color-black;
+//   color: $color-white;
+// }
+
+:host ::ng-deep app-personal-data-card .card {
+  background-color: $color-white;
+}

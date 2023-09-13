@@ -1,0 +1,22 @@
+@import "src/styles.scss";
+
+.product__card {
+  display: inline-flex;
+  gap: 1rem;
+  cursor: pointer;
+
+  img {
+    width: 100px;
+    height: 80px;
+    border: 1px solid $color-disabled;
+    border-radius: $border-radius-x1;
+    overflow: hidden;
+    object-fit: contain;
+  }
+
+  .product__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}

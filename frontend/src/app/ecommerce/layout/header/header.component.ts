@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  inject,
+  signal,
+} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuItem, TreeNode } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
@@ -9,13 +16,21 @@ import { ProductServices } from 'src/app/core/services/product-services/product-
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/core/interfaces/user.interfaces';
 import { UserService } from 'src/app/core/services/user/user.service';
+import {
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('filter') filterPanel!: OverlayPanel;
   @ViewChild('cart') cartPanel!: OverlayPanel;
   @ViewChild('user') userPanel!: OverlayPanel;
@@ -33,6 +48,8 @@ export class HeaderComponent implements OnInit {
 
   userData = signal<User>({} as User);
 
+  private subscription!: Subscription;
+
   private readonly productService = inject(ProductServices);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
@@ -45,7 +62,9 @@ export class HeaderComponent implements OnInit {
     this.searchForm = this.initSearchForm();
     this.getProductsToCart();
     this.isAutenticate();
-    this.userData.set(JSON.parse(localStorage.getItem('userData') || '{}'));
+    // this.userData.set(JSON.parse(localStorage.getItem('userData') || '{}'));
+
+    this.getUserData();
 
     this.items = [
       {
@@ -76,6 +95,16 @@ export class HeaderComponent implements OnInit {
         },
       },
     ];
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  getUserData() {
+    this.subscription = this.userService.user$.subscribe((res) => {
+      this.userData.set(res);
+    });
   }
 
   getCategories() {
@@ -131,11 +160,24 @@ export class HeaderComponent implements OnInit {
   }
   initSearchForm(): FormGroup {
     return this.formBuilder.group({
-      product: [''],
+      product: ['', Validators.required],
     });
   }
 
-  SearchFormProducts() {
+  SearchFormProducts(): void {
+    if (this.searchForm.invalid) return;
+
+    // this.searchForm.valueChanges
+    //   .pipe(
+    //     map((search) => search.trim()),
+    //     debounceTime(850),
+    //     distinctUntilChanged(),
+    //     filter((search) => search !== ''),
+    //     tap((search) => {
+    //       console.log(search);
+    //     })
+    //   )
+    //   .subscribe();
     this.router.navigate(['/products'], {
       queryParams: { query: this.searchForm.value.product.toLowerCase() },
     });

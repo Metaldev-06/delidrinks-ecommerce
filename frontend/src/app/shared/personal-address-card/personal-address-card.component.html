@@ -1,4 +1,4 @@
-<div class="card personal__data">
+<div class="card personal__data" *ngIf="addresses">
   <i class="pi pi-map-marker"></i>
   <div class="card__content">
     <div class="card__info" *ngIf="addresses.length > 0; else emptyAddress">
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="button__container">
+    <div class="button__container" *ngIf="showOption">
       <button class="button custom__button--line">
         <i class="pi pi-map"></i>
         Añadir dirección

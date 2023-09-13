@@ -1,41 +1,70 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  inject,
+  signal,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { CartProduct } from 'src/app/core/interfaces/cart-product.interfaces';
 import { Message } from 'src/app/core/interfaces/message';
 import { ProductDatum } from 'src/app/core/interfaces/product';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
 import { MessageService } from 'src/app/core/services/message-services/message.service';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
+  @Input() showOptions: boolean = true;
+
   products: ProductDatum[] = [];
   productsCart: CartProduct[] = [];
   combinedProducts: ProductDatum[] = [];
   totalProductPrice!: number;
   childFormValidities: boolean[] = [];
-  formValid = false;
+  formValid: boolean = false;
+  isAuth: boolean = false;
+
+  private unsubscribe$ = new Subject<void>();
 
   private readonly cartService = inject(CartService);
+  private readonly userService = inject(UserService);
   private readonly productServices = inject(ProductServices);
   private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
 
   ngOnInit(): void {
     this.getCart();
+    this.getAuth();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   getCart() {
     this.productsCart = this.cartService.getCart();
 
     if (this.productsCart.length === 0) return;
-    this.productServices.getCartProducts(this.productsCart).subscribe((res) => {
-      this.products = res;
-      this.combinedProducts = this.combineWithQuantity(res, this.productsCart);
-      this.totalQunatity();
-    });
+    this.productServices
+      .getCartProducts(this.productsCart)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res) => {
+        this.products = res;
+        this.combinedProducts = this.combineWithQuantity(
+          res,
+          this.productsCart
+        );
+        this.totalQunatity();
+      });
   }
 
   combineWithQuantity(
@@ -85,6 +114,21 @@ export class CartComponent implements OnInit {
       this.messageService.showMessage(message, messageDuration);
       return;
     }
+
+    if (this.isAuth) {
+      this.router.navigateByUrl('/checkout');
+    } else {
+      this.router.navigateByUrl('/auth');
+    }
+  }
+
+  getAuth() {
+    this.userService
+      .getAutenticate()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((res) => {
+        this.isAuth = res;
+      });
   }
 
   handleValidation(isValid: boolean, index: number) {

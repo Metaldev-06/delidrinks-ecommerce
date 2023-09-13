@@ -3,6 +3,7 @@
     <article class="select__container">
       <h2 class="form__title">Elije el número de teléfono:</h2>
       <select formControlName="filter" (change)="selectValue()">
+        <option value="" hidden selected>Número</option>
         <option *ngFor="let phone of numberPhone; let i = index" [value]="i">
           {{ phone.name | titlecase }}
         </option>

@@ -9,9 +9,10 @@
       </h3>
       <p>@{{ userData.username | titlecase }}</p>
       <p>{{ userData.email }}</p>
+      <p *ngIf="!showOptions">{{ number }}</p>
     </div>
 
-    <div class="button__container">
+    <div class="button__container" *ngIf="showOptions">
       <button class="button custom__button--line">
         <i class="pi pi-lock"></i>
         Cambiar contraseña
