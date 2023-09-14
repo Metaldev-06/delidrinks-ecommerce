@@ -21,7 +21,10 @@ export class PersonalAddressComponent implements OnInit {
   @Input() personalAddress!: Address[];
   @Input() userData!: User;
   @Input() showInfo: boolean = true;
+  @Input() updateAddres: boolean = true;
+
   @Output() addressFormData = new EventEmitter<AddressBody>();
+  @Output() addAddressFormData = new EventEmitter<AddressBody>();
   @Output() deletedaddress = new EventEmitter<AddressBody>();
 
   public addressForm!: FormGroup;
@@ -37,7 +40,7 @@ export class PersonalAddressComponent implements OnInit {
   initAddressForm(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      filter: ['', [Validators.required]],
+      filter: [''],
       province: ['', [Validators.required]],
       postal_code: ['', [Validators.required]],
       city: ['', [Validators.required]],
@@ -70,6 +73,22 @@ export class PersonalAddressComponent implements OnInit {
       delete formData.filter;
 
       this.addressFormData.emit(formData);
+    } else {
+      const message: Message = {
+        title: 'Campos requeridos incompletos',
+        message: 'Debe completar los campos requeridos para guardar los datos',
+      };
+
+      this.messageService.showMessage(message);
+    }
+  }
+
+  addNewAddress() {
+    if (this.addressForm.valid) {
+      const formData = { ...this.addressForm.value };
+      delete formData.filter;
+
+      this.addAddressFormData.emit(formData);
     } else {
       const message: Message = {
         title: 'Campos requeridos incompletos',

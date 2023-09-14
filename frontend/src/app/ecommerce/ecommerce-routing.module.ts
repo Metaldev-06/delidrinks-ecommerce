@@ -55,16 +55,40 @@ const routes: Routes = [
           import('./pages/checkout/checkout.module').then(
             (m) => m.CheckoutModule
           ),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
       },
       {
         path: 'payment/:slug',
         loadChildren: () =>
           import('./pages/payment/payment.module').then((m) => m.PaymentModule),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
       },
       {
         path: 'resume/:slug',
         loadChildren: () =>
           import('./pages/resume/resume.module').then((m) => m.ResumeModule),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
+      },
+      {
+        path: 'my-shopping',
+        loadChildren: () =>
+          import('./pages/shopping/shopping.module').then(
+            (m) => m.ShoppingModule
+          ),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
+      },
+      {
+        path: 'user/change-password',
+        loadChildren: () =>
+          import('./pages/change-password/change-password.module').then(
+            (m) => m.ChangePasswordModule
+          ),
+        canActivate: [isAutenticateGuard],
+        canMatch: [isAutenticateMatchGuard],
       },
     ],
   },

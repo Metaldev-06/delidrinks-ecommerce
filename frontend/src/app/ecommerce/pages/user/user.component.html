@@ -4,7 +4,18 @@
     <article class="user__detail">
       <div class="user__image">
         <img [src]="image()" [alt]="userData.name" fill />
-        <button class="button custom__button--fill">Actualizar imagen</button>
+
+        <form class="upload__container">
+          <label class="upload__file" for="upload">Actualizar imagen</label>
+          <input
+            id="upload"
+            type="file"
+            (change)="uploadImage($event)"
+            name="file"
+            style="display: none"
+            accept="image/*"
+          />
+        </form>
       </div>
     </article>
 
@@ -25,3 +36,15 @@
     </article>
   </div>
 </section>
+
+<p-dialog
+  [(visible)]="showLoader"
+  [breakpoints]="{ '960px': '75vw' }"
+  [style]="{ width: '40vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true"
+  [closable]="false"
+>
+  <app-loader />
+</p-dialog>

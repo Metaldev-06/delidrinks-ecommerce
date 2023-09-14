@@ -84,6 +84,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         },
       },
       {
+        label: 'Mis compras',
+        icon: 'pi pi-shopping-bag',
+        routerLink: ['/my-shopping'],
+        command: () => {
+          this.closeModal();
+        },
+      },
+      {
         separator: true,
       },
       {
@@ -135,6 +143,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
     this.files = transformedData;
+
+    console.log(transformedData);
   }
 
   nodeExpand(event: any) {}

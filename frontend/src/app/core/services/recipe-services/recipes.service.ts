@@ -20,17 +20,29 @@ export class RecipesService {
       .set('populate', 'image');
   }
 
-  getRecipes(): Signal<RecipeDatum[]> {
+  // getRecipes(): Signal<RecipeDatum[]> {
+  //   const params = this.getCommonParams();
+
+  //   return toSignal(
+  //     this.http.get<RecipeDatum[]>(`${this.baseUrl}/recipes`, { params }).pipe(
+  //       map((res: any) => {
+  //         return res.data;
+  //       })
+  //     ),
+  //     { initialValue: [], injector: this.injector }
+  //   );
+  // }
+
+  getRecipes(): Observable<RecipeDatum[]> {
     const params = this.getCommonParams();
 
-    return toSignal(
-      this.http.get<RecipeDatum[]>(`${this.baseUrl}/recipes`, { params }).pipe(
+    return this.http
+      .get<RecipeDatum[]>(`${this.baseUrl}/recipes`, { params })
+      .pipe(
         map((res: any) => {
           return res.data;
         })
-      ),
-      { initialValue: [], injector: this.injector }
-    );
+      );
   }
 
   getRecipeBySlug(slug: string): Observable<RecipeDatum> {

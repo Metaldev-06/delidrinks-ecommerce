@@ -3,12 +3,10 @@ import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
 
 export const isAutenticateGuard: CanActivateFn = (route, state) => {
-  // return true;
   return isAutenticate();
 };
 
 export const isAutenticateMatchGuard: CanMatchFn = (route, segments) => {
-  // return true;
   return isAutenticate();
 };
 

@@ -15,7 +15,10 @@
     </div>
 
     <div class="button__container" *ngIf="showOption">
-      <button class="button custom__button--line">
+      <button
+        class="button custom__button--line"
+        (click)="showAddNumberPhoneDialog()"
+      >
         <i class="pi pi-map"></i>
         Añadir dirección
       </button>
@@ -48,6 +51,24 @@
     [personalAddress]="addresses"
     [userData]="userData"
     (addressFormData)="onFormAddressSaved($event)"
+    (deletedaddress)="deletAddress($event)"
+  />
+</p-dialog>
+
+<p-dialog
+  header="Agregar una dirección"
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="addAddressDialog"
+  [style]="{ width: '95%', maxWidth: '800px' }"
+>
+  <app-personal-address
+    [personalAddress]="addresses"
+    [userData]="userData"
+    [showInfo]="false"
+    [updateAddres]="false"
+    (addressFormData)="onFormAddressSaved($event)"
+    (addAddressFormData)="addFormAddressSaved($event)"
     (deletedaddress)="deletAddress($event)"
   />
 </p-dialog>

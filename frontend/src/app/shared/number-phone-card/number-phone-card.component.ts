@@ -24,6 +24,7 @@ export class NumberPhoneCardComponent implements OnInit {
   @Output() updateData = new EventEmitter<void>();
 
   public numberPhoneDialog: boolean = false;
+  public addNumberPhoneDialog: boolean = false;
 
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
@@ -34,15 +35,36 @@ export class NumberPhoneCardComponent implements OnInit {
     this.numberPhoneDialog = true;
   }
 
+  showAddNumberPhoneDialog() {
+    this.addNumberPhoneDialog = true;
+  }
+
   onFormNumberDataSaved(formData: PhoneBody) {
-    this.numberPhoneDialog = false;
     this.userService
       .updateNumberPhone(formData, this.userData)
       .pipe(take(1))
       .subscribe((res) => {
+        this.numberPhoneDialog = false;
         const message: Message = {
           title: 'Datos guardados',
           message: 'Ha actualizado correctamente sus datos',
+        };
+
+        this.messageService.showMessage(message);
+
+        this.updateData.emit();
+      });
+  }
+
+  addNewNumberPhone(formData: PhoneBody) {
+    this.userService
+      .addNumberPhone(formData, this.userData)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.addNumberPhoneDialog = false;
+        const message: Message = {
+          title: 'Datos guardados',
+          message: 'Se ha añadido correctamente su número de teléfono',
         };
 
         this.messageService.showMessage(message);

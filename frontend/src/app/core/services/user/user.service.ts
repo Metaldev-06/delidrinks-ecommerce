@@ -2,13 +2,22 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { User, UserBody, UserResponse } from '../../interfaces/user.interfaces';
+import {
+  UploadImageResponse,
+  User,
+  UserBody,
+  UserResponse,
+} from '../../interfaces/user.interfaces';
 import { PhoneBody, PhonesResponse } from '../../interfaces/phones.interfaces';
-// import { CookieService } from 'ngx-cookie-service';
 import {
   AddressBody,
   AddressResponse,
 } from '../../interfaces/address.interface';
+import { CookieService } from 'ngx-cookie-service';
+import {
+  UpdatePasswordBody,
+  UpdatePasswordResponse,
+} from '../../interfaces/change-password.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,14 +35,18 @@ export class UserService {
 
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl;
-  // private readonly cookieService = inject(CookieService);
+  private readonly cookieService = inject(CookieService);
 
   constructor() {
     const userDataLocalStorage = localStorage.getItem('userData');
     if (userDataLocalStorage) {
       this.userData.next(JSON.parse(userDataLocalStorage));
     }
-    // this.token = this.cookieService.get('accessToken');
+    const token = this.cookieService.get('accessToken');
+
+    if (token) {
+      this.isAutenticate.next(true);
+    }
   }
 
   //!USER
@@ -49,7 +62,39 @@ export class UserService {
     return this.http.put<UserResponse>(`${this.baseUrl}/users/${id}`, form);
   }
 
+  updateUserImage(
+    formData: FormData,
+    imageId: string
+  ): Observable<UploadImageResponse> {
+    console.log(formData);
+
+    return this.http.post<UploadImageResponse>(
+      `${this.baseUrl}/upload/${imageId}`,
+      formData
+    );
+  }
+
+  updatePassword(form: UpdatePasswordBody): Observable<UpdatePasswordResponse> {
+    return this.http.post<UpdatePasswordResponse>(
+      `${this.baseUrl}/auth/change-password`,
+      form
+    );
+  }
+
   //!NUMBER PHONE
+
+  addNumberPhone(form: PhoneBody, user: User): Observable<PhonesResponse> {
+    const { id } = user;
+    const data = {
+      name: form.name,
+      area_code: form.area_code,
+      number_phone: form.number_phone,
+      users_permissions_user: id,
+      primary: form.primary,
+    };
+    return this.http.post<PhonesResponse>(`${this.baseUrl}/phones`, { data });
+  }
+
   updateNumberPhone(form: PhoneBody, user: User): Observable<PhonesResponse> {
     const { id } = user;
     const data = {
@@ -70,6 +115,25 @@ export class UserService {
   }
 
   //!ADDRESS
+
+  addAddress(form: AddressBody, user: User): Observable<AddressResponse> {
+    const { id } = user;
+
+    const data = {
+      data: {
+        province: form.province,
+        postal_code: form.postal_code,
+        city: form.city,
+        address: form.address,
+        observations: form.observations,
+        primary: form.primary,
+        name: form.name,
+        users_permissions_users: id,
+      },
+    };
+    return this.http.post<AddressResponse>(`${this.baseUrl}/addresses`, data);
+  }
+
   updateAddress(form: AddressBody, user: User): Observable<AddressResponse> {
     const { id } = user;
     const data = {

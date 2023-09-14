@@ -20,7 +20,9 @@ import { MessageService } from 'src/app/core/services/message-services/message.s
 export class NumberPhoneComponent implements OnInit {
   @Input() numberPhone!: Phone[];
   @Input() userData!: User;
+  @Input() updateNumber: boolean = true;
   @Output() numberFormData = new EventEmitter<PhoneBody>();
+  @Output() addNumberFormData = new EventEmitter<PhoneBody>();
   @Output() deletedNumber = new EventEmitter<PhoneBody>();
 
   numberPhoneForm!: FormGroup;
@@ -36,7 +38,7 @@ export class NumberPhoneComponent implements OnInit {
   initNumberPhoneForm(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      filter: ['', [Validators.required]],
+      filter: [''],
       area_code: ['', [Validators.required]],
       number_phone: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -82,6 +84,22 @@ export class NumberPhoneComponent implements OnInit {
       const message: Message = {
         title: 'Debe seleccionar un número',
         message: 'Completa los campos requeridos para guardar los datos',
+      };
+
+      this.messageService.showMessage(message);
+    }
+  }
+
+  addNumberPhone() {
+    if (this.numberPhoneForm.valid) {
+      const formData = { ...this.numberPhoneForm.value };
+      delete formData.filter;
+
+      this.addNumberFormData.emit(formData);
+    } else {
+      const message: Message = {
+        title: 'Campos requeridos incompletos',
+        message: 'Debe completar los campos requeridos para guardar los datos',
       };
 
       this.messageService.showMessage(message);

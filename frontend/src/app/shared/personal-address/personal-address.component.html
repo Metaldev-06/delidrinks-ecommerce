@@ -1,17 +1,19 @@
 <section class="phone__container">
   <form class="form__container" [formGroup]="addressForm">
-    <article class="select__container">
-      <h2 class="form__title">Elija una dirección:</h2>
-      <select formControlName="filter" (change)="selectValue()">
-        <option value="" hidden selected>Dirección</option>
-        <option
-          *ngFor="let address of personalAddress; let i = index"
-          [value]="i"
-        >
-          {{ address.name | titlecase }}
-        </option>
-      </select>
-    </article>
+    <ng-container *ngIf="updateAddres">
+      <article class="select__container">
+        <h2 class="form__title required">Elija una dirección:</h2>
+        <select formControlName="filter" (change)="selectValue()">
+          <option value="" hidden selected>Dirección</option>
+          <option
+            *ngFor="let address of personalAddress; let i = index"
+            [value]="i"
+          >
+            {{ address.name | titlecase }}
+          </option>
+        </select>
+      </article>
+    </ng-container>
 
     <article class="form__content">
       <div class="form__control">
@@ -83,27 +85,49 @@
       <input id="primary" type="checkbox" formControlName="primary" />
     </article>
 
-    <article
-      class="button__container"
-      [style]="showInfo ? {} : { display: 'flex', justifyContent: 'flex-end' }"
-    >
-      <button
-        class="button custom__button--black delete"
-        (click)="deleteNumber()"
-        *ngIf="showInfo"
+    <ng-container *ngIf="updateAddres; else AddNumberButtonContainer">
+      <article
+        class="button__container"
+        [style]="
+          showInfo ? {} : { display: 'flex', justifyContent: 'flex-end' }
+        "
       >
-        <i class="pi pi-trash"></i>
-        Eliminar
-      </button>
+        <button
+          class="button custom__button--black delete"
+          (click)="deleteNumber()"
+          *ngIf="showInfo"
+        >
+          <i class="pi pi-trash"></i>
+          Eliminar
+        </button>
 
-      <button
-        (click)="sendData()"
-        type="submit"
-        class="button custom__button--black"
-        [ngClass]="showInfo ? 'custom__button--black' : 'custom__button--fill'"
-      >
-        Guardar
-      </button>
-    </article>
+        <button
+          (click)="sendData()"
+          type="submit"
+          class="button custom__button--black"
+          [ngClass]="
+            showInfo ? 'custom__button--black' : 'custom__button--fill'
+          "
+        >
+          Guardar
+        </button>
+      </article>
+    </ng-container>
   </form>
 </section>
+
+<ng-template #AddNumberButtonContainer>
+  <article
+    class="button__container"
+    [style]="showInfo ? {} : { display: 'flex', justifyContent: 'flex-end' }"
+  >
+    <button
+      (click)="addNewAddress()"
+      type="submit"
+      class="button custom__button--black"
+      [ngClass]="showInfo ? 'custom__button--black' : 'custom__button--fill'"
+    >
+      Guardar
+    </button>
+  </article>
+</ng-template>

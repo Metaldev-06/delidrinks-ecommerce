@@ -13,7 +13,10 @@
     </div>
 
     <div class="button__container" *ngIf="showOptions">
-      <button class="button custom__button--line">
+      <button
+        class="button custom__button--line"
+        [routerLink]="['/user/change-password']"
+      >
         <i class="pi pi-lock"></i>
         Cambiar contraseña
       </button>

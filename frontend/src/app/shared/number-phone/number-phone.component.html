@@ -1,14 +1,16 @@
 <section class="phone__container">
   <form class="form__container" [formGroup]="numberPhoneForm">
-    <article class="select__container">
-      <h2 class="form__title">Elije el número de teléfono:</h2>
-      <select formControlName="filter" (change)="selectValue()">
-        <option value="" hidden selected>Número</option>
-        <option *ngFor="let phone of numberPhone; let i = index" [value]="i">
-          {{ phone.name | titlecase }}
-        </option>
-      </select>
-    </article>
+    <ng-container *ngIf="updateNumber">
+      <article class="select__container">
+        <h2 class="form__title required">Elije el número de teléfono:</h2>
+        <select formControlName="filter" (change)="selectValue()">
+          <option value="" hidden selected>Número</option>
+          <option *ngFor="let phone of numberPhone; let i = index" [value]="i">
+            {{ phone.name | titlecase }}
+          </option>
+        </select>
+      </article>
+    </ng-container>
 
     <article class="form__content">
       <div class="form__control">
@@ -47,19 +49,33 @@
       <input id="primary" type="checkbox" formControlName="primary" />
     </article>
 
-    <article class="button__container">
-      <button class="button custom__button--black" (click)="deleteNumber()">
-        <i class="pi pi-trash"></i>
-        Eliminar
-      </button>
+    <ng-container *ngIf="updateNumber; else buttonContainer">
+      <article class="button__container">
+        <button class="button custom__button--black" (click)="deleteNumber()">
+          <i class="pi pi-trash"></i>
+          Eliminar
+        </button>
 
-      <button
-        (click)="sendData()"
-        type="submit"
-        class="button custom__button--black"
-      >
-        Guardar
-      </button>
-    </article>
+        <button
+          (click)="sendData()"
+          type="submit"
+          class="button custom__button--black"
+        >
+          Guardar
+        </button>
+      </article>
+    </ng-container>
   </form>
 </section>
+
+<ng-template #buttonContainer>
+  <article class="button__container--add">
+    <button
+      (click)="addNumberPhone()"
+      type="submit"
+      class="button custom__button--black"
+    >
+      Guardar
+    </button>
+  </article>
+</ng-template>

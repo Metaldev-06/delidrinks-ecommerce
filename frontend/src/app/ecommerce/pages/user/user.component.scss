@@ -28,7 +28,7 @@
       .user__image {
         width: 100%;
         max-width: 300px;
-        min-height: 344px;
+        height: 344px;
         border-radius: $border-radius-x1;
         overflow: hidden;
         position: relative;
@@ -41,11 +41,42 @@
         img {
           width: 100%;
           max-width: 400px;
+          object-fit: cover;
+          aspect-ratio: 1 / 1;
+          object-position: center;
           // border-radius: 50%;
         }
-        .button {
+
+        .upload__container {
           width: 100%;
-          border-radius: 0 0;
+          max-width: 300px;
+          height: 40px;
+          background-color: $color-white;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s;
+          color: $color-black;
+          cursor: pointer;
+
+          .upload__file {
+            width: 100%;
+            max-width: 300px;
+            height: 100%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            line-height: 40px;
+          }
+
+          &:hover {
+            background-color: $color-glass;
+            color: $color-white;
+          }
+
+          &:active {
+            background-color: $color-grey;
+            color: $color-white;
+          }
         }
       }
     }

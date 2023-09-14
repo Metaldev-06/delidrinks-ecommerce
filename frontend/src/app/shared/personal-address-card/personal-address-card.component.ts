@@ -25,6 +25,7 @@ export class PersonalAddressCardComponent implements OnInit {
   @Output() updateData = new EventEmitter<void>();
 
   public addressDialog: boolean = false;
+  public addAddressDialog: boolean = true;
 
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);
@@ -32,6 +33,9 @@ export class PersonalAddressCardComponent implements OnInit {
 
   shownumberPhoneDialog() {
     this.addressDialog = true;
+  }
+  showAddNumberPhoneDialog() {
+    this.addAddressDialog = true;
   }
 
   onFormAddressSaved(formData: AddressBody) {
@@ -43,6 +47,23 @@ export class PersonalAddressCardComponent implements OnInit {
         const message: Message = {
           title: 'Datos guardados',
           message: 'Ha actualizado correctamente sus datos',
+        };
+
+        this.messageService.showMessage(message);
+
+        this.updateData.emit();
+      });
+  }
+
+  addFormAddressSaved(formData: AddressBody) {
+    this.addressDialog = false;
+    this.userService
+      .addAddress(formData, this.userData)
+      .pipe(take(1))
+      .subscribe((res) => {
+        const message: Message = {
+          title: 'Añadido con éxito',
+          message: 'Se ha agregado la dirección correctamente',
         };
 
         this.messageService.showMessage(message);

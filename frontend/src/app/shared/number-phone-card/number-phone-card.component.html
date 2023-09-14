@@ -13,7 +13,10 @@
     </div>
 
     <div class="button__container">
-      <button class="button custom__button--line">
+      <button
+        class="button custom__button--line"
+        (click)="showAddNumberPhoneDialog()"
+      >
         <i class="pi pi-phone"></i>
         Añadir número
       </button>
@@ -47,6 +50,24 @@
     [userData]="userData"
     *ngIf="phoneData.length > 0"
     (numberFormData)="onFormNumberDataSaved($event)"
+    (deletedNumber)="deletNumber($event)"
+  />
+</p-dialog>
+
+<p-dialog
+  header="Agregar un número de teléfono"
+  [modal]="true"
+  [draggable]="false"
+  [(visible)]="addNumberPhoneDialog"
+  [style]="{ width: '95%', maxWidth: '800px' }"
+>
+  <app-number-phone
+    [numberPhone]="phoneData"
+    [userData]="userData"
+    [updateNumber]="false"
+    *ngIf="phoneData.length > 0"
+    (numberFormData)="onFormNumberDataSaved($event)"
+    (addNumberFormData)="addNewNumberPhone($event)"
     (deletedNumber)="deletNumber($event)"
   />
 </p-dialog>

@@ -6,15 +6,8 @@ import {
   CheckoutResponse,
   PaymentAttributes,
 } from '../../interfaces/checkout.interface';
-import {
-  OrderAttributes,
-  OrderResponse,
-} from '../../interfaces/order.interface';
-import {
-  BodyPayment,
-  Items,
-  PaymentResponseMp,
-} from '../../interfaces/payment.interface';
+import { OrderResponse } from '../../interfaces/order.interface';
+import { PaymentResponseMp } from '../../interfaces/payment.interface';
 
 @Injectable({
   providedIn: 'root',
