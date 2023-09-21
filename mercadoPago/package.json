@@ -22,7 +22,7 @@
   "main": "index.js",
   "name": "mercadopago",
   "scripts": {
-    "start": "build/main.js",
+    "start": "node build/main.js",
     "dev": "nodemon src/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
