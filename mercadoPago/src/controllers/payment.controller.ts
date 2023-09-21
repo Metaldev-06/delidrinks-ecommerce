@@ -52,7 +52,8 @@ export const createOrder = async (req: Request, res: Response) => {
     },
     auto_return: "approved",
 
-    notification_url: "https://7qrrtvzm-3000.brs.devtunnels.ms/webhook",
+    notification_url:
+      "https://delidrinks-ecommerce-production-682e.up.railway.app/webhook",
   });
 
   res.send(result);
