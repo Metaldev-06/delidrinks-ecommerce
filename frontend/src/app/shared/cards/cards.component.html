@@ -30,9 +30,11 @@
 
   <div class="info__container">
     <div class="text__container">
-      <h3 [routerLink]="['/product/' + product.attributes.slug]">
-        {{ brand() + " - " + product.attributes.name | titlecase }}
-      </h3>
+      <ng-container *ngIf="brand().length > 1; else emptyBrand">
+        <h3 [routerLink]="['/product/' + product.attributes.slug]">
+          {{ brand() + " - " + product.attributes.name | titlecase }}
+        </h3>
+      </ng-container>
       <p>{{ category() }}</p>
     </div>
 
@@ -56,3 +58,9 @@
     </div>
   </div>
 </div>
+
+<ng-template #emptyBrand>
+  <h3 [routerLink]="['/product/' + product.attributes.slug]">
+    {{ product.attributes.name | titlecase }}
+  </h3>
+</ng-template>

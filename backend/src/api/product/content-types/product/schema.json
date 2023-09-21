@@ -83,6 +83,14 @@
     "description": {
       "type": "text",
       "required": true
+    },
+    "subcategory": {
+      "type": "enumeration",
+      "enum": [
+        "with-alcohol",
+        "without-alcohol",
+        "combos"
+      ]
     }
   }
 }

@@ -70,6 +70,10 @@
     },
     "shipping_code": {
       "type": "string"
+    },
+    "dispatched": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

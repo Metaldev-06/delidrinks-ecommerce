@@ -12,6 +12,7 @@
     // background-color: $color-soft-gray;
     border-radius: $border-radius-x1;
     display: flex;
+    align-items: center;
 
     label {
       width: 100%;
@@ -19,6 +20,11 @@
       cursor: pointer;
       display: block;
       padding: 1rem 0.5rem;
+    }
+
+    span {
+      padding-right: 1rem;
+      font-weight: bold;
     }
   }
 

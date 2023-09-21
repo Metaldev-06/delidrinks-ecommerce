@@ -20,6 +20,15 @@
                 placeholder="Nombre"
                 formControlName="name"
               />
+              <span
+                class="required__field"
+                *ngIf="
+                  registerForm.get('name')?.hasError('required') &&
+                  registerForm.get('name')?.touched
+                "
+              >
+                Campo requerido
+              </span>
             </div>
 
             <div class="card__input">
@@ -30,6 +39,16 @@
                 placeholder="Apellido"
                 formControlName="lastName"
               />
+
+              <span
+                class="required__field"
+                *ngIf="
+                  registerForm.get('lastName')?.hasError('required') &&
+                  registerForm.get('lastName')?.touched
+                "
+              >
+                Campo requerido
+              </span>
             </div>
 
             <div class="card__input">
@@ -40,6 +59,14 @@
                 placeholder="Email"
                 formControlName="email"
               />
+
+              <ng-container
+                *ngIf="
+                  registerForm.get('email')?.hasError('pattern') &&
+                    registerForm.get('email')?.touched;
+                  else emailField
+                "
+              ></ng-container>
             </div>
 
             <div class="card__input">
@@ -50,16 +77,56 @@
                 placeholder="Nombre de Usuario"
                 formControlName="username"
               />
+
+              <span
+                class="required__field"
+                *ngIf="
+                  registerForm.get('username')?.hasError('required') &&
+                  registerForm.get('username')?.touched
+                "
+              >
+                Campo requerido
+              </span>
+
+              <span
+                class="required__field"
+                *ngIf="
+                  registerForm.get('username')?.hasError('maxlength') &&
+                  registerForm.get('username')?.touched
+                "
+              >
+                El nombre de usuario debe tener máximo 14 carácteres
+              </span>
             </div>
 
             <div class="card__input">
               <label class="required" for="password">Contraseña</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Contraseña"
-                formControlName="password"
-              />
+              <div class="password__container">
+                <input
+                  formControlName="password"
+                  id="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  placeholder="Contraseña"
+                  required
+                />
+                <span
+                  class="show__password"
+                  (click)="changeVisibilityPassword()"
+                >
+                  <i
+                    class="pi"
+                    [ngClass]="showPassword ? 'pi-eye' : 'pi-eye-slash'"
+                  ></i>
+                </span>
+              </div>
+
+              <ng-container
+                *ngIf="
+                  registerForm.get('password')?.hasError('pattern') &&
+                    registerForm.get('password')?.touched;
+                  else passwordField
+                "
+              ></ng-container>
             </div>
 
             <div class="card__input">
@@ -68,10 +135,18 @@
               >
               <input
                 id="repeatPassword"
-                type="password"
+                [type]="showPassword ? 'text' : 'password'"
                 placeholder="Vuelva a ingregar su contraseña"
                 formControlName="confirmPassword"
               />
+
+              <ng-container
+                *ngIf="
+                  registerForm.get('password')?.hasError('pattern') &&
+                    registerForm.get('password')?.touched;
+                  else passwordField
+                "
+              ></ng-container>
             </div>
           </div>
 
@@ -100,3 +175,45 @@
 </main>
 
 <app-message />
+
+<ng-template #emailField>
+  <span
+    *ngIf="
+      registerForm.get('email')?.hasError('required') &&
+      registerForm.get('email')?.touched
+    "
+    class="required__field"
+  >
+    Este campo es requerido
+  </span>
+
+  <span
+    *ngIf="registerForm.get('email')?.hasError('pattern')"
+    class="required__field"
+  >
+    No es un email válido
+  </span>
+</ng-template>
+
+<ng-template #passwordField>
+  <span
+    *ngIf="
+      registerForm.get('password')?.hasError('required') &&
+      registerForm.get('password')?.touched
+    "
+    class="required__field"
+  >
+    Este campo es requerido
+  </span>
+
+  <span
+    *ngIf="registerForm.get('password')?.hasError('minlength')"
+    class="required__field"
+  >
+    La contraseña debe tener al menos 6 caracteres.
+  </span>
+
+  <span *ngIf="registerForm.hasError('different')" class="required__field">
+    Las contraseñas deben coincidir.
+  </span>
+</ng-template>

@@ -5,6 +5,10 @@ import {
   isAutenticateGuard,
   isAutenticateMatchGuard,
 } from '../core/guards/is-autenticate/is-autenticate.guard';
+import {
+  checkCartGuard,
+  checkMatchCartGuard,
+} from '../core/guards/check-cart/check-cart.guard';
 
 const routes: Routes = [
   {
@@ -55,8 +59,8 @@ const routes: Routes = [
           import('./pages/checkout/checkout.module').then(
             (m) => m.CheckoutModule
           ),
-        canActivate: [isAutenticateGuard],
-        canMatch: [isAutenticateMatchGuard],
+        canActivate: [isAutenticateGuard, checkCartGuard],
+        canMatch: [isAutenticateMatchGuard, checkMatchCartGuard],
       },
       {
         path: 'payment/:slug',

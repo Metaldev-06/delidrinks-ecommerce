@@ -19,6 +19,7 @@
     -webkit-backdrop-filter: $auth-backdrop;
     background-color: $auth-color;
     gap: 1rem;
+
     .card__login {
       width: 95%;
       max-width: 1200px;
@@ -69,6 +70,18 @@
                 border-radius: $border-radius-x1;
                 border: none;
                 padding: 0 1rem;
+                outline: none;
+                &:focus-visible {
+                  border: 1px solid $color-grey;
+                }
+              }
+
+              .password__container {
+                width: 100%;
+                position: relative;
+                input {
+                  width: 100%;
+                }
               }
             }
           }
@@ -145,4 +158,8 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.required__field {
+  color: $color-soft-gray;
 }

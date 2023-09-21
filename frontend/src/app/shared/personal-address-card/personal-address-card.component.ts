@@ -25,7 +25,7 @@ export class PersonalAddressCardComponent implements OnInit {
   @Output() updateData = new EventEmitter<void>();
 
   public addressDialog: boolean = false;
-  public addAddressDialog: boolean = true;
+  public addAddressDialog: boolean = false;
 
   private readonly userService = inject(UserService);
   private readonly messageService = inject(MessageService);

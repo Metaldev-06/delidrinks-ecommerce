@@ -34,7 +34,10 @@ export class PersonalDataComponent implements OnInit {
       email: [{ value: this.userData.email, disabled: true }],
       name: [this.userData.name, [Validators.required]],
       lastName: [this.userData.lastName, [Validators.required]],
-      username: [this.userData.username, [Validators.required]],
+      username: [
+        this.userData.username,
+        [Validators.required, Validators.maxLength(14)],
+      ],
       birthday_date: [this.userData.birthday_date, [Validators.required]],
     });
   }

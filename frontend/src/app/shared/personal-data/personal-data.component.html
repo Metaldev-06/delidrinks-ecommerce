@@ -26,6 +26,16 @@
         <div class="form__control">
           <label class="required" for="username">Nombre de Usuario</label>
           <input type="text" id="username" formControlName="username" />
+
+          <span
+            class="required__field"
+            *ngIf="
+              personalDataForm.get('username')?.hasError('maxlength') &&
+              personalDataForm.get('username')?.touched
+            "
+          >
+            El nombre de usuario debe tener máximo 14 carácteres
+          </span>
         </div>
         <div class="form__control">
           <label for="birthDate">Fecha de cumpleaños</label>

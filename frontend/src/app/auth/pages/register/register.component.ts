@@ -20,6 +20,8 @@ import { MessageService } from 'src/app/core/services/message-services/message.s
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
+  public showPassword = false;
+
   private readonly authService = inject(AuthService);
   private readonly formBuilder = inject(FormBuilder);
   private readonly messageService = inject(MessageService);
@@ -33,7 +35,13 @@ export class RegisterComponent implements OnInit {
         name: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         username: ['', [Validators.required, Validators.maxLength(14)]],
-        email: ['', [Validators.required, Validators.email]],
+        email: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/),
+          ],
+        ],
         password: ['', [Validators.required]],
         confirmPassword: ['', Validators.required],
       },
@@ -49,8 +57,8 @@ export class RegisterComponent implements OnInit {
       const pass2 = formGroup.get(campo2)?.value;
 
       if (pass1 !== pass2) {
-        formGroup.get(campo2)?.setErrors({ noIguales: true });
-        return { noIguales: true };
+        formGroup.get(campo2)?.setErrors({ different: true });
+        return { different: true };
       }
 
       formGroup.get(campo2)?.setErrors(null);
@@ -93,5 +101,9 @@ export class RegisterComponent implements OnInit {
       message: 'Ha ocurrido un error inesperado',
     };
     this.messageService.showMessage(message);
+  }
+
+  changeVisibilityPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

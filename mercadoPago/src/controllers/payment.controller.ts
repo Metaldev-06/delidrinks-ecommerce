@@ -25,29 +25,17 @@ export interface Data {
   id: string;
 }
 
-// let orderId: any = undefined;
-// let jwt: any = undefined;
-// let userId: any = undefined;
 global.orderId = "";
 global.jwt = "";
 global.userId = "";
 
 export const createOrder = async (req: Request, res: Response) => {
-  //   console.log(req.body);
-
   const items = req.body.items;
   const order = req.body.order;
   const shipping_price = req.body.shipping_price;
   global.userId = req.body.userId;
   global.jwt = req.body.jwt;
   global.orderId = req.body.orderId;
-
-  // console.log(items);
-  // console.log(order);
-  // console.log(shipping_price);
-  // console.log(userId);
-  // console.log(jwt);
-  // console.log(orderId);
 
   const result = await mercadopago.preferences.create({
     items: items,
@@ -58,8 +46,8 @@ export const createOrder = async (req: Request, res: Response) => {
     },
 
     back_urls: {
-      success: `http://localhost:4200/resume/${order}`,
-      failure: `http://localhost:4200/payment/${order}`,
+      success: `https://delidrinks-ecommerce.vercel.app/resume/${order}`,
+      failure: `https://delidrinks-ecommerce.vercel.app/resume/${order}`,
       //   pending: "https://7qrrtvzm-4200.brs.devtunnels.ms/",
     },
     auto_return: "approved",
@@ -67,7 +55,6 @@ export const createOrder = async (req: Request, res: Response) => {
     notification_url: "https://7qrrtvzm-3000.brs.devtunnels.ms/webhook",
   });
 
-  // console.log();
   res.send(result);
 };
 
@@ -78,15 +65,9 @@ export const webhook = async (req: Request, res: Response) => {
 
   try {
     if (payment.type === "payment") {
-      // const data = await mercadopago.payment.findById(Number(payment.id));
-
       const orderId = global.orderId;
       const userId = global.userId;
       const jwt = global.jwt;
-
-      // console.log(userId);
-      // console.log(jwt);
-      // console.log(orderId);
 
       const requestBody = {
         data: {
@@ -96,7 +77,7 @@ export const webhook = async (req: Request, res: Response) => {
       };
 
       const axiosInstance = axios.create({
-        baseURL: "http://192.168.1.16:1337/api",
+        baseURL: "https://delidrinks-ecommerce-production.up.railway.app/api",
         headers: {
           Authorization: `Bearer ${jwt}`,
         },

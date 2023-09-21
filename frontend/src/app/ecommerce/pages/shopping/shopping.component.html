@@ -1,1 +1,70 @@
-<p>shopping works!</p>
+<section class="shopping__container">
+  <h1>Historial de Compra</h1>
+
+  <article class="header__shopping">
+    <span class="number__order">Número de orden</span>
+    <span>Estado del envío </span>
+    <span>Estado del pago </span>
+    <span>Fecha de compra </span>
+  </article>
+
+  <article class="shopping__content" *ngIf="orders; else loading">
+    <div
+      class="shopping__card"
+      *ngFor="let order of orders"
+      [routerLink]="
+        order.attributes.completed
+          ? ['/resume/', order.attributes.name]
+          : ['/payment/', order.attributes.name]
+      "
+    >
+      <!-- <div class="shopping__card--image"></div> -->
+
+      <div class="shopping__card--info">
+        <h2>
+          <span class="bold">Orden N°: </span> {{ order.attributes.name }}
+        </h2>
+      </div>
+
+      <div class="shopping__card--dispatched">
+        <span
+          *ngIf="order.attributes.completed"
+          [style.background]="
+            order.attributes.dispatched ? '#30d830' : '#ffa600'
+          "
+          >{{ order.attributes.dispatched | dispatched | titlecase }}</span
+        >
+      </div>
+
+      <!-- <div class="shopping__card--price"></div> -->
+
+      <div class="shopping__card--badge">
+        <span
+          [style.background]="
+            order.attributes.completed ? '#30d830' : '#ffa600'
+          "
+          >{{ order.attributes.completed | payCondition | titlecase }}</span
+        >
+      </div>
+
+      <div class="shopping__card--date">
+        <span
+          >{{ order.attributes.createdAt | date }} -
+          {{ order.attributes.createdAt | date : "shortTime" }}</span
+        >
+      </div>
+    </div>
+  </article>
+
+  <p-paginator
+    (onPageChange)="onPageChange($event)"
+    [first]="first"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [style]="{ background: 'none', margin: '5rem auto' }"
+  ></p-paginator>
+</section>
+
+<ng-template #loading>
+  <app-loader />
+</ng-template>

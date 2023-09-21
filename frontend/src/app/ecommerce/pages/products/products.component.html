@@ -22,9 +22,17 @@
         <option value="price:asc">Ordenar por precio (Menor)</option>
       </select>
     </form>
-    <article class="cards__cotainer">
-      <app-cards *ngFor="let product of products" [product]="product" />
+
+    <article class="products__content">
+      <div class="menu__categories">
+        <p-menu [model]="items"></p-menu>
+      </div>
+
+      <div class="cards__cotainer">
+        <app-cards *ngFor="let product of products" [product]="product" />
+      </div>
     </article>
+
     <p-paginator
       (onPageChange)="onPageChange($event)"
       [first]="first"

@@ -1,5 +1,10 @@
 <section class="categories__container">
-  <div class="category__card" *ngFor="let category of categories">
+  <div
+    class="category__card"
+    *ngFor="let category of categories"
+    [routerLink]="['/products/']"
+    [queryParams]="{ category: category.url }"
+  >
     <div>
       <span>{{ category.name }}</span>
     </div>

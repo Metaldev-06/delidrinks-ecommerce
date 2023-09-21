@@ -15,16 +15,16 @@
       <button
         class="button custom__button--fill products__button"
         [routerLink]="['/products/']"
-        (mouseenter)="filter.show($event)"
-        (mouseenter)="user.hide()"
-        (mouseenter)="cart.hide()"
-        (click)="filter.hide()"
       >
         Productos
       </button>
     </li>
     <li class="nav__item input__container">
-      <form [formGroup]="searchForm" (ngSubmit)="SearchFormProducts()">
+      <form
+        class="form"
+        [formGroup]="searchForm"
+        (ngSubmit)="SearchFormProducts()"
+      >
         <input type="text" placeholder="Buscar..." formControlName="product" />
       </form>
     </li>
@@ -37,10 +37,7 @@
         >
           <i class="pi pi-user"></i>
         </button>
-        <button
-          class="button custom__button--fill"
-          (click)="cart.toggle($event)"
-        >
+        <button class="button custom__button--fill" (click)="showCartFn()">
           <i class="pi pi-shopping-cart"></i>
           <span
             class="badge__cart"
@@ -54,32 +51,20 @@
             {{ totalProductToCart() }}
           </span>
         </button>
+
+        <div class="cart__container" *ngIf="showCart" #cartContainer>
+          <app-cart (hideCart)="closeModal($event)"></app-cart>
+        </div>
       </div>
     </li>
   </ul>
 </nav>
 
-<p-overlayPanel #filter>
-  <ng-template pTemplate="content">
-    <p-tree
-      [value]="files"
-      class="w-full md:w-30rem"
-      selectionMode="single"
-      [(selection)]="selectedFile"
-      (onNodeExpand)="nodeExpand($event)"
-      (onNodeCollapse)="nodeCollapse($event)"
-      (onNodeSelect)="nodeSelect($event)"
-      (onNodeUnselect)="nodeUnselect($event)"
-      [style]="{ border: 'none' }"
-    ></p-tree>
-  </ng-template>
-</p-overlayPanel>
-
-<p-overlayPanel #cart>
+<!-- <p-overlayPanel #cart>
   <ng-template pTemplate="content">
     <app-cart />
   </ng-template>
-</p-overlayPanel>
+</p-overlayPanel> -->
 
 <p-overlayPanel #user>
   <ng-template pTemplate="content">
@@ -88,7 +73,7 @@
 </p-overlayPanel>
 
 <ng-template #userMenu>
-  <div (click)="user.toggle($event)">
+  <div (click)="user.toggle($event); showCart = false">
     <h3>
       <span>Bienvenido</span>
       <span class="user__username">@{{ userData().username | titlecase }}</span>

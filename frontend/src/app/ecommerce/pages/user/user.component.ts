@@ -60,7 +60,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     if (!this.allowedImageTypes.includes(image.type)) {
       const message: Message = {
-        title: 'No es un formato permitodo',
+        title: 'No es un formato permitido',
         message: 'Sólo puede subir imagenes png, jpg, gif, webp',
       };
 

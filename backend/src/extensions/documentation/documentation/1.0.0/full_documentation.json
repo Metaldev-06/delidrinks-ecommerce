@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2023-09-14T15:55:42.084Z"
+    "x-generation-date": "2023-09-20T20:54:15.480Z"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -1318,6 +1318,9 @@
                                                     },
                                                     "shipping_code": {
                                                       "type": "string"
+                                                    },
+                                                    "dispatched": {
+                                                      "type": "boolean"
                                                     },
                                                     "createdAt": {
                                                       "type": "string",
@@ -2974,6 +2977,14 @@
                         "description": {
                           "type": "string"
                         },
+                        "subcategory": {
+                          "type": "string",
+                          "enum": [
+                            "with-alcohol",
+                            "without-alcohol",
+                            "combos"
+                          ]
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -4409,6 +4420,14 @@
                         "description": {
                           "type": "string"
                         },
+                        "subcategory": {
+                          "type": "string",
+                          "enum": [
+                            "with-alcohol",
+                            "without-alcohol",
+                            "combos"
+                          ]
+                        },
                         "createdAt": {
                           "type": "string",
                           "format": "date-time"
@@ -5747,6 +5766,9 @@
                                                     "shipping_code": {
                                                       "type": "string"
                                                     },
+                                                    "dispatched": {
+                                                      "type": "boolean"
+                                                    },
                                                     "createdAt": {
                                                       "type": "string",
                                                       "format": "date-time"
@@ -6194,6 +6216,9 @@
               },
               "shipping_code": {
                 "type": "string"
+              },
+              "dispatched": {
+                "type": "boolean"
               }
             }
           }
@@ -7340,6 +7365,9 @@
                                                   "shipping_code": {
                                                     "type": "string"
                                                   },
+                                                  "dispatched": {
+                                                    "type": "boolean"
+                                                  },
                                                   "createdAt": {
                                                     "type": "string",
                                                     "format": "date-time"
@@ -7701,6 +7729,9 @@
           },
           "shipping_code": {
             "type": "string"
+          },
+          "dispatched": {
+            "type": "boolean"
           },
           "createdAt": {
             "type": "string",
@@ -8975,6 +9006,9 @@
                                                   "shipping_code": {
                                                     "type": "string"
                                                   },
+                                                  "dispatched": {
+                                                    "type": "boolean"
+                                                  },
                                                   "createdAt": {
                                                     "type": "string",
                                                     "format": "date-time"
@@ -9455,6 +9489,14 @@
               },
               "description": {
                 "type": "string"
+              },
+              "subcategory": {
+                "type": "string",
+                "enum": [
+                  "with-alcohol",
+                  "without-alcohol",
+                  "combos"
+                ]
               }
             }
           }
@@ -10773,6 +10815,14 @@
                                     "description": {
                                       "type": "string"
                                     },
+                                    "subcategory": {
+                                      "type": "string",
+                                      "enum": [
+                                        "with-alcohol",
+                                        "without-alcohol",
+                                        "combos"
+                                      ]
+                                    },
                                     "createdAt": {
                                       "type": "string",
                                       "format": "date-time"
@@ -10946,6 +10996,14 @@
           },
           "description": {
             "type": "string"
+          },
+          "subcategory": {
+            "type": "string",
+            "enum": [
+              "with-alcohol",
+              "without-alcohol",
+              "combos"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -12327,6 +12385,14 @@
                         },
                         "description": {
                           "type": "string"
+                        },
+                        "subcategory": {
+                          "type": "string",
+                          "enum": [
+                            "with-alcohol",
+                            "without-alcohol",
+                            "combos"
+                          ]
                         },
                         "createdAt": {
                           "type": "string",

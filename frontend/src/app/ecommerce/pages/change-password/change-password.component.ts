@@ -1,5 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { take } from 'rxjs';
@@ -15,6 +21,8 @@ import { UserService } from 'src/app/core/services/user/user.service';
 export class ChangePasswordComponent implements OnInit {
   public changePasswordForm!: FormGroup;
 
+  public showPassword = false;
+
   private readonly formBuilder = inject(FormBuilder);
   private readonly userService = inject(UserService);
   private readonly cookieService = inject(CookieService);
@@ -26,11 +34,31 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   initChangePasswordForm(): FormGroup {
-    return this.formBuilder.group({
-      currentPassword: ['', Validators.required],
-      password: ['', Validators.required],
-      passwordConfirmation: ['', Validators.required],
-    });
+    return this.formBuilder.group(
+      {
+        currentPassword: ['', Validators.required],
+        password: ['', Validators.required],
+        passwordConfirmation: ['', Validators.required],
+      },
+      {
+        validators: [this.equalFields('password', 'passwordConfirmation')],
+      }
+    );
+  }
+
+  equalFields(campo1: string, campo2: string) {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const pass1 = formGroup.get(campo1)?.value;
+      const pass2 = formGroup.get(campo2)?.value;
+
+      if (pass1 !== pass2) {
+        formGroup.get(campo2)?.setErrors({ different: true });
+        return { different: true };
+      }
+
+      formGroup.get(campo2)?.setErrors(null);
+      return null;
+    };
   }
 
   updatePassword() {
@@ -68,5 +96,9 @@ export class ChangePasswordComponent implements OnInit {
           this.messageService.showMessage(message);
         },
       });
+  }
+
+  changeVisibilityPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

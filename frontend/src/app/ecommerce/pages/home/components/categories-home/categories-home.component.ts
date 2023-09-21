@@ -9,18 +9,25 @@ export class CategoriesHomeComponent {
   categories = [
     {
       name: 'Bebidas con Alcohol',
-      url: '',
+      url: 'with-alcohol',
       image: '../../../../../../assets/images/category-bebidas-alcohol.png',
     },
     {
       name: 'Bebidas sin Alcohol',
-      url: '',
+      url: 'without-alcohol',
       image: '../../../../../../assets/images/category-bebidas.png',
     },
     {
       name: 'Combos',
-      url: '',
+      url: 'combos',
       image: '../../../../../../assets/images/category-combos.png',
     },
   ];
 }
+
+// this.router.navigate([`/products`], {
+//   queryParams: {
+//     category: event.node.parent.data,
+//     subcategory: event.node.data,
+//   },
+// })

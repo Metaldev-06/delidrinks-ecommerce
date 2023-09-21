@@ -29,6 +29,16 @@ export class CheckoutService {
 
   private readonly http = inject(HttpClient);
 
+  getOrders(page = 1, sort = 'createdAt:desc'): Observable<OrderResponse> {
+    let params = new HttpParams()
+      .set('populate', '*')
+      .set('pagination[page]', page)
+      .set('pagination[pageSize]', 5)
+      .set('sort', sort);
+
+    return this.http.get<OrderResponse>(`${this.baseUrl}/orders`, { params });
+  }
+
   getOrderBySlug(slug: string): Observable<OrderResponse> {
     let params = new HttpParams()
       .set('filters[slug][$eq]', slug)

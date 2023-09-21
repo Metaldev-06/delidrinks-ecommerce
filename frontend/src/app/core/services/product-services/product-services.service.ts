@@ -67,10 +67,10 @@ export class ProductServices {
     // .set('pagination[pageSize]', 2);
 
     if (category) {
-      params = params.set('filters[category][slug][$eq]', category);
+      params = params.set('filters[subcategory][$eq]', category);
     }
     if (subcategory) {
-      params = params.set('filters[brand][slug][$eq]', subcategory!);
+      params = params.set('filters[category][slug][$eq]', subcategory!);
     }
     if (query) {
       params = params.set('filters[$or][0][name][$contains]', query!);

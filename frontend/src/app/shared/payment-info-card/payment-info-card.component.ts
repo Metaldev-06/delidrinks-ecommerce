@@ -27,12 +27,11 @@ export class PaymentInfoCardComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    // console.log(this.productInfo);
     this.getTotalProducts();
   }
 
   getTotalProducts() {
-    this.subtotal = this.productInfo?.reduce((total, product) => {
+    this.subtotal = this.productInfo.reduce((total, product) => {
       const price = product.attributes.price!;
       const cuantity = product.attributes.quantity!;
       return total + price * cuantity;

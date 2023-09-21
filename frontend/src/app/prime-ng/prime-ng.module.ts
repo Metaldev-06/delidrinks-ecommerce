@@ -6,6 +6,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { DialogModule } from 'primeng/dialog';
 import { AccordionModule } from 'primeng/accordion';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   exports: [
@@ -16,6 +17,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     DialogModule,
     AccordionModule,
     RadioButtonModule,
+    MenuModule,
   ],
 })
 export class PrimeNgModule {}

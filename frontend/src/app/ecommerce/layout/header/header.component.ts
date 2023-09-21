@@ -1,7 +1,9 @@
 import {
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
+  Renderer2,
   ViewChild,
   inject,
   signal,
@@ -12,18 +14,10 @@ import { MenuItem, TreeNode } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { CategoryDatum } from 'src/app/core/interfaces/category.interfaces';
 import { CartService } from 'src/app/core/services/cart-services/cart.service';
-import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
 import { CookieService } from 'ngx-cookie-service';
 import { User } from 'src/app/core/interfaces/user.interfaces';
 import { UserService } from 'src/app/core/services/user/user.service';
-import {
-  Subscription,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  tap,
-} from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -40,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   categories!: CategoryDatum[];
   totalProductToCart = signal<number>(0);
   isLogued: boolean = false;
+  public showCart = false;
 
   selectedFile!: any;
   items!: MenuItem[];
@@ -50,21 +45,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscription!: Subscription;
 
-  private readonly productService = inject(ProductServices);
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   private readonly cartService = inject(CartService);
   private readonly userService = inject(UserService);
   private readonly cookieService = inject(CookieService);
+  private readonly renderer = inject(Renderer2);
+  private readonly elementRef = inject(ElementRef);
 
   ngOnInit(): void {
-    this.getCategories();
     this.searchForm = this.initSearchForm();
     this.getProductsToCart();
     this.isAutenticate();
     // this.userData.set(JSON.parse(localStorage.getItem('userData') || '{}'));
 
     this.getUserData();
+
+    this.clickOutMenu();
 
     this.items = [
       {
@@ -115,59 +112,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCategories() {
-    this.productService.getCategories().subscribe((res: any) => {
-      this.categories = res.data;
-      this.transformData(res);
-    });
-  }
-
-  transformData(apiResponse: any) {
-    const transformedData = apiResponse.data
-      .filter((category: any) => category.attributes.brands.data.length > 0) // Filtrar las categorías con marcas
-      .map((category: any) => {
-        const categoryLabel = category.attributes.name;
-        const categoryData = category.attributes.slug;
-        const brandsData = category.attributes.brands.data;
-
-        const children = brandsData.map((brand: any) => ({
-          label: brand.attributes.name,
-          data: brand.attributes.slug,
-        }));
-
-        return {
-          label: categoryLabel,
-          data: categoryData,
-          children: children,
-        };
-      });
-
-    this.files = transformedData;
-
-    console.log(transformedData);
-  }
-
-  nodeExpand(event: any) {}
-  nodeCollapse(event: any) {}
-  nodeUnselect(event: any) {}
-
-  nodeSelect(event: any) {
-    this.filterPanel.hide();
-
-    this.router.navigate([`/products`], {
-      queryParams: {
-        category: event.node.data,
-      },
-    });
-    if (event.node.parent) {
-      this.router.navigate([`/products`], {
-        queryParams: {
-          category: event.node.parent.data,
-          subcategory: event.node.data,
-        },
-      });
-    }
-  }
   initSearchForm(): FormGroup {
     return this.formBuilder.group({
       product: ['', Validators.required],
@@ -176,20 +120,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   SearchFormProducts(): void {
     if (this.searchForm.invalid) return;
-
-    // this.searchForm.valueChanges
-    //   .pipe(
-    //     map((search) => search.trim()),
-    //     debounceTime(850),
-    //     distinctUntilChanged(),
-    //     filter((search) => search !== ''),
-    //     tap((search) => {
-    //       console.log(search);
-    //     })
-    //   )
-    //   .subscribe();
     this.router.navigate(['/products'], {
-      queryParams: { query: this.searchForm.value.product.toLowerCase() },
+      queryParams: {
+        query: this.searchForm.value.product.toLowerCase().trim(),
+      },
     });
 
     this.searchForm.reset();
@@ -220,9 +154,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.logout = false;
   }
 
-  closeModal() {
-    this.filterPanel.hide();
-    this.cartPanel.hide();
+  closeModal(e?: any) {
+    // this.cartPanel.hide();
     this.userPanel.hide();
+    this.showCart = false;
+  }
+
+  showCartFn() {
+    this.showCart = !this.showCart;
+  }
+
+  clickOutMenu() {
+    this.renderer.listen('document', 'click', (event: MouseEvent) => {
+      const clickedInsideMenu = this.elementRef.nativeElement.contains(
+        event.target
+      );
+
+      console.log(this.elementRef.nativeElement.contains(event.target));
+
+      if (!clickedInsideMenu) {
+        this.showCart = false;
+      }
+    });
   }
 }

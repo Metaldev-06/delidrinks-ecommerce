@@ -84,9 +84,11 @@ export class ProductComponent implements OnInit {
   }
 
   getProducts(category: string) {
-    this.productService.getProductsByCategory(category).subscribe((res) => {
-      this.products = res.data;
-    });
+    this.productService
+      .getProductsByCategory(undefined, category)
+      .subscribe((res) => {
+        this.products = res.data;
+      });
   }
 
   getRelations(product: PurpleAttributes) {
@@ -124,6 +126,10 @@ export class ProductComponent implements OnInit {
   }
 
   favorite(product: PurpleAttributes) {
+    if (!this.isLogued) {
+      return;
+    }
+
     this.favoritesService.favorites$.subscribe((res) => {
       const favorites: Datum[] = res.data;
       const isFavorite = favorites.find(

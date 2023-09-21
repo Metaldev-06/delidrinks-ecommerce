@@ -8,7 +8,7 @@
 
     <form class="checkout__info">
       <p-accordion class="acordion" [multiple]="true" [activeIndex]="[0]">
-        <p-accordionTab [style]="{ backgroundColor: 'red' }">
+        <p-accordionTab [disabled]="false" [style]="{ backgroundColor: 'red' }">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
               <i class="pi pi-user"></i>
@@ -24,7 +24,7 @@
           </ng-template>
         </p-accordionTab>
 
-        <p-accordionTab>
+        <p-accordionTab [disabled]="false">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
               <i class="pi pi-map-marker"></i>
@@ -41,7 +41,7 @@
           </ng-template>
         </p-accordionTab>
 
-        <p-accordionTab>
+        <p-accordionTab [disabled]="showShippingMethod">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
               <i class="pi pi-car"></i>
@@ -57,7 +57,7 @@
           </ng-template>
         </p-accordionTab>
 
-        <p-accordionTab>
+        <p-accordionTab [disabled]="showPayment">
           <ng-template pTemplate="header">
             <div class="flex align-items-center">
               <i class="pi pi-credit-card"></i>

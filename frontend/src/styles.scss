@@ -22,7 +22,7 @@ $color-complementary: #1562f0;
 $color-red: #d12424;
 $color-glass: #343434;
 $color-card-glass: #464646;
-$color-success: rgb(48, 216, 48);
+$color-success: #30d830;
 
 //GLASSMORPHISM
 $input-background: rgba(255, 255, 255, 0.1);
@@ -244,6 +244,37 @@ input[type="number"]::-webkit-outer-spin-button {
 .bold {
   font-weight: bold;
   font-size: 1.3rem;
+}
+
+.show__password {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: $color-grey;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.required__field {
+  color: $color-red;
+}
+
+input {
+  height: 40px;
+  border-radius: $border-radius-x1;
+  border: none;
+  padding: 0 1rem;
+  outline: none;
+
+  &:focus-visible {
+    border: 1px solid $color-grey;
+  }
 }
 
 $breakpoints: (

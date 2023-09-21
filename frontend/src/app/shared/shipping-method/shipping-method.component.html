@@ -19,6 +19,8 @@
       formControlName="selectedMethod"
     ></p-radioButton>
     <label [for]="method.shipping_method">{{ method.name }}</label>
+
+    <span>{{ method.price | currency : "ARS" : "symbol-narrow" }}</span>
   </div>
 
   <div class="button__container">

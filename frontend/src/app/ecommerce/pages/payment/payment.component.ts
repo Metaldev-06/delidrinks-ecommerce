@@ -60,32 +60,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   getOrderBySlug(slug: string) {
-    this.checkoutService.order$
+    this.checkoutService
+      .getOrderBySlug(slug)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((order) => {
-        this.order = order;
-        this.getProductsCart(order.products);
+      .subscribe((res) => {
+        this.order = res.data[0].attributes;
+        this.getProductsCart(this.order.products);
+
         this.getRelations();
+
+        const IdOrderToken = res.data[0].id;
+        const newOrder = this.order;
+
+        newOrder.id = IdOrderToken;
       });
-
-    if (Object.keys(this.order).length === 0) {
-      this.checkoutService
-        .getOrderBySlug(slug)
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((res) => {
-          this.order = res.data[0].attributes;
-          this.getProductsCart(this.order.products);
-
-          this.getRelations();
-
-          const IdOrderToken = res.data[0].id;
-          const newOrder = this.order;
-
-          newOrder.id = IdOrderToken;
-
-          this.checkoutService.updateLocalOrder(newOrder);
-        });
-    }
+    // }
   }
 
   getRelations() {
@@ -126,7 +115,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   pay() {
     this.showRedirect = true;
-    localStorage.removeItem('cart');
 
     const items = this.products.map((product) => {
       return {

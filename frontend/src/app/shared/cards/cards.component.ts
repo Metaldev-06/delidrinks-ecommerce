@@ -40,11 +40,22 @@ export class CardsComponent implements OnInit {
   }
 
   getRelations(products: ProductDatum) {
-    this.image.set(
-      `${products.attributes.image.data[0].attributes.formats.small.url}`
-    );
+    const image =
+      products.attributes.image.data[0].attributes?.formats?.small?.url;
 
-    this.brand.set(`${products.attributes.brand.data.attributes.name}`);
+    if (!this.image()) {
+      this.image.set(`${products.attributes.image.data[0].attributes.url}`);
+    } else {
+      this.image.set(`${image}`);
+    }
+
+    const brand = products.attributes.brand?.data?.attributes?.name;
+
+    if (brand === undefined) {
+      this.brand.set('');
+    } else {
+      this.brand.set(`${brand}`);
+    }
 
     this.category.set(`${products.attributes.category.data.attributes.name}`);
   }

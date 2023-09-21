@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { ProductDatum } from 'src/app/core/interfaces/product';
 import { ProductServices } from 'src/app/core/services/product-services/product-services.service';
@@ -19,14 +20,14 @@ interface PageEvent {
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   selectForm!: FormGroup;
-  private productsSubscription!: Subscription;
 
   products: ProductDatum[] = [];
+  items!: MenuItem[];
 
-  first: number = 0;
-  rows: number = 1;
-  totalRecords: number = 0;
-  currentPage: number = 1;
+  first = 0;
+  rows = 1;
+  totalRecords = 0;
+  currentPage = 1;
 
   isEmpty: boolean = true;
   isLoading: boolean = true;
@@ -35,6 +36,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   subcategory: string = '';
   query!: string;
 
+  private productsSubscription!: Subscription;
+
   private readonly productService = inject(ProductServices);
   private readonly router = inject(ActivatedRoute);
   private readonly formBuilder = inject(FormBuilder);
@@ -42,6 +45,54 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getParamSlug();
     this.selectForm = this.initselectForm();
+
+    this.items = [
+      {
+        label: 'Categorías',
+        items: [
+          {
+            label: 'Todos',
+            // icon: 'pi pi-plus',
+            routerLink: ['/products'],
+          },
+          {
+            label: 'Con alcohol',
+            // icon: 'pi pi-plus',
+            routerLink: ['/products'],
+            queryParams: { category: 'with-alcohol' },
+          },
+          {
+            label: 'Sin alcohol',
+            // icon: 'pi pi-download',
+            routerLink: ['/products'],
+            queryParams: { category: 'without-alcohol' },
+          },
+          {
+            label: 'Combos',
+            // icon: 'pi pi-download',
+            routerLink: ['/products'],
+            queryParams: { category: 'combos' },
+          },
+        ],
+      },
+      {
+        label: 'Subcategorías',
+        items: [
+          {
+            label: 'whisky',
+            // icon: 'pi pi-plus',
+            routerLink: ['/products'],
+            queryParams: { subcategory: 'whisky' },
+          },
+          {
+            label: 'licor',
+            // icon: 'pi pi-download',
+            routerLink: ['/products'],
+            queryParams: { subcategory: 'licor' },
+          },
+        ],
+      },
+    ];
   }
 
   getParamSlug() {

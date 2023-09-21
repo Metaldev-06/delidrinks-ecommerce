@@ -24,6 +24,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   public shippingDetails!: Address[];
   public shippingDetail!: any;
   public shipphingMethod!: ShippingMethod;
+  public showShippingMethod = true;
+  public showPayment = true;
 
   private subscription!: Subscription;
   private productCart!: CartProduct[];
@@ -56,9 +58,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   getShipphingDetail(data: any) {
     this.shippingDetail = data;
+    this.showShippingMethod = false;
   }
   getShipphingMethod(data: ShippingMethod) {
     this.shipphingMethod = data;
+    this.showPayment = false;
   }
 
   payment() {
@@ -95,6 +99,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   newOrder(data: any) {
     this.checkoutService.newOrder(data).subscribe((resp) => {
       data.id = resp.data.id;
+      localStorage.removeItem('cart');
       this.checkoutService.updateLocalOrder(data);
       this.router.navigate(['/payment/' + data.slug]);
     });

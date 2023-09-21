@@ -19,7 +19,8 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  public loginForm!: FormGroup;
+  public showPassword = false;
 
   private readonly authService = inject(AuthService);
   private readonly cookieService = inject(CookieService);
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly userService = inject(UserService);
   private readonly favoritesService = inject(FavoritesService);
+
   ngOnInit(): void {
     this.loginForm = this.initLoginForm();
   }
@@ -98,8 +100,18 @@ export class LoginComponent implements OnInit {
 
   initLoginForm(): FormGroup {
     return this.formBuilder.group({
-      identifier: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      identifier: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/),
+        ],
+      ],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
+
+  changeVisibilityPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

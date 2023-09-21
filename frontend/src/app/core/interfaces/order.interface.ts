@@ -27,6 +27,7 @@ export interface OrderAttributes {
   shipping_price: number;
   shipping_code?: string;
   shipping_company?: string;
+  dispatched: boolean;
 }
 
 export interface Addresses {

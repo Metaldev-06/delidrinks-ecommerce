@@ -32,6 +32,8 @@ import { PaymentProductCardComponent } from './payment-product-card/payment-prod
 import { BrandPipePipe } from './pipes/brand-pipe/brand-pipe.pipe';
 import { PaymentInfoCardComponent } from './payment-info-card/payment-info-card.component';
 import { FormCreditCardComponent } from './form-credit-card/form-credit-card.component';
+import { PayConditionPipe } from './pipes/pay-condition/pay-condition.pipe';
+import { DispatchedPipe } from './pipes/dispatched/dispatched.pipe';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { FormCreditCardComponent } from './form-credit-card/form-credit-card.com
     BrandPipePipe,
     PaymentInfoCardComponent,
     FormCreditCardComponent,
+    PayConditionPipe,
+    DispatchedPipe,
   ],
   imports: [
     CommonModule,
@@ -97,6 +101,8 @@ import { FormCreditCardComponent } from './form-credit-card/form-credit-card.com
     BrandPipePipe,
     PaymentInfoCardComponent,
     FormCreditCardComponent,
+    PayConditionPipe,
+    DispatchedPipe,
   ],
 })
 export class SharedModule {}

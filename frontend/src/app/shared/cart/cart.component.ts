@@ -1,10 +1,11 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   inject,
-  signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -22,7 +23,8 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-  @Input() showOptions: boolean = true;
+  @Input() showOptions = true;
+  @Output() hideCart = new EventEmitter<void>();
 
   products: ProductDatum[] = [];
   productsCart: CartProduct[] = [];
@@ -114,6 +116,8 @@ export class CartComponent implements OnInit, OnDestroy {
       this.messageService.showMessage(message, messageDuration);
       return;
     }
+
+    this.hideCart.emit();
 
     if (this.isAuth) {
       this.router.navigateByUrl('/checkout');
